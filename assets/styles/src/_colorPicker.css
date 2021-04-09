@@ -1,0 +1,34 @@
+.main-test {
+    height: 100vh;
+}
+/*------------------------------------------------------------------------*/
+.color-picker-container {
+    width: 100%;
+    margin: 2rem auto;
+    display: flex;
+    flex-direction: column;
+}
+.color-picker-select {
+    display: flex;
+}
+/*------------------------------------------------------------------------*/
+.color-picker-slider {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+/*------------------------------------------------------------------------*/
+.color-picker-render {
+    width: 50%;
+    margin-left: 5px;
+}
+#color-render {
+    height: 100%;
+    width: 100%;
+    border: 2px solid var(--dark-grey);
+}
+/*------------------------------------------------------------------------*/
+#hexa-value {
+    width: 80px;
+}
+/*------------------------------------------------------------------------*/

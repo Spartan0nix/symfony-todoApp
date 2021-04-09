@@ -1,0 +1,79 @@
+/*
+    -- black --
+    #343232
+    #535050
+    #151414
+    -- blue --
+    #385780
+*/
+.modal-wrapper {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(21, 20, 20, 0.5);
+    transition: visibility 0.3s, opacity 0.3s ease-in;
+    opacity: 0;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+}
+.modal {
+    position: relative;
+    display: flex;
+    transition: 0.5s ease-in;
+    flex-direction: column;
+    width: 500px;
+    background-color: #FFFFFF;
+
+}
+
+/*------------------------------------------------------------------------*/
+.modal-header {
+    width: 100%;
+    background-color: #EAEBEA;
+    height: 63px;
+    border-bottom: 1px solid var(--color-default);
+    justify-content: center;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+/*------------------------------------------------------------------------*/
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    margin: 2rem 2rem;
+}
+/*------------------------------------------------------------------------*/
+.modal-btn {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 2rem;
+}
+.modal-btn > button {
+    font-size: 18px;
+    height: 42px;
+}
+/*------------------------------------------------------------------------*/
+.close-modal {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+}
+.close-modal:hover {
+    cursor: pointer !important;
+}
+/*------------------------------------------------------------------------*/
+
+@media screen and (max-width: 600px){
+    .modal-wrapper form{
+        width: 90%;
+    }
+    .modal {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

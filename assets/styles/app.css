@@ -1,0 +1,62 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Gill Sans", sans-serif;
+}
+/*----------------------------------------------------------*/
+:root {
+    --color-default: #727C83;
+    --color-success: #65B872;
+    --color-danger: #EE5044;
+    --color-primary: #1F5CD6;
+    --color-warning: #e6cc3c;
+
+    --alert-primary: #caf0f8;
+    --alert-success: #cfffb3;
+    --alert-warning: #fdf7d6;
+    --alert-error: #FADBDF;
+
+    --progress-bar: #92B9C9;
+    --disable-button: #DCE4E3;
+
+    /* grey */
+    --dark-grey: #374151;
+    --medium-grey: #6B7280;
+    --light-grey: #D1D5DB;
+    --vlight-grey: #F9FAFB;
+
+    /* red */
+    --medium-red: #DC2626;
+}
+/*----------------------------------------------------------*/
+/* Import Tailwind */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+/*----------------------------------------------------------*/
+/* Import Modules */
+@import "./src/_button.css";
+@import "./src/_input.css";
+@import "./src/_placement.css";
+@import "./src/_table.css";
+@import "./src/_modal.css";
+@import "./src/_alert.css";
+@import "./src/_tag.css";
+@import "./src/_navbar.css";
+@import "./src/_progressBar.css";
+@import "./src/_footer.css";
+@import "./src/_list.css";
+@import "./src/_colorPicker.css";
+/*----------------------------------------------------------*/
+/* Import Animations */
+@import "./src/_animations.css";
+/*----------------------------------------------------------*/
+/* Import pages css */
+@import "./pages/taskIndex.css";
+@import "./pages/tagIndex.css";
+@import "./pages/login.css";
+@import "./pages/homepage.css";
+/*----------------------------------------------------------*/
+

@@ -1,0 +1,33 @@
+.footer-container {
+    position: static;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    min-height: 150px;
+    background-color: var(--dark-grey);   
+}
+
+.github-link {
+    margin-top: 30px;
+    align-self: center;
+}
+
+.footer-link {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+    color: var(--vlight-grey);
+}
+
+@media (max-width: 800px){
+    .footer-container {
+        min-height: 220px;
+    }
+    .footer-link {
+        flex-direction: column;
+        align-items: center;
+    }
+}

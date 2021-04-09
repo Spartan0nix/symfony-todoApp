@@ -1,0 +1,74 @@
+/*----------------------------------------------------------*/
+/* Color */
+:root{
+    --border-color: #BEC3C6;
+}
+/*----------------------------------------------------------*/
+/* Table default property */
+.tableau table, th, td {
+    border-collapse: collapse;
+    padding: 1em;
+    font-size: 14px;
+}
+
+/* Add border right to the right of each td and th */
+.tableau th, td { border-right: 1px solid var(--border-color); }
+
+/* Add border bottom to each tr */
+.tableau tr { border-bottom: 1px solid var(--border-color); }
+
+/* Remove border right to the last column (right side) */
+.tableau tr > th:last-child, td:last-child { border-right: none; }
+
+/*----------------------------------------------------------*/
+/* table-action is the <td> with the finish/edit/remove button */
+.table-action{
+    display: flex;
+    flex-direction: row;
+}
+.table-action > a {
+    padding: 2px 12px;
+    height: auto; 
+    margin: 5px; 
+}
+.table-action > button {
+    padding: 2px 12px;
+    height: 30px;
+    margin: 5px; 
+}
+/*----------------------------------------------------------*/
+tr:hover {
+    background-color: #C8E5F9;
+    cursor: pointer !important;
+}
+/*----------------------------------------------------------*/
+/* Differents table themes */
+.theme-success > * > h4 {
+    color: var(--medium-grey);
+    text-decoration: line-through;
+}
+.theme-success > * > p {
+    color: var(--medium-grey);
+}
+
+.theme-selected {
+    background-color: var(--alert-primary) !important;
+}
+/*----------------------------------------------------------*/
+@keyframes backgroundColorSlide {
+    from {
+        background-color: white ;
+    }
+    to {
+        background-color: lightgreen;
+    }
+}
+/*----------------------------------------------------------*/
+.sortable-hilight {
+    height: 80px;
+    line-height: 80px;
+    border-left: 2px solid var(--color-primary);
+    border-right: 2px solid var(--color-primary);
+    background-color:#caf0f8 ;
+}
+/*----------------------------------------------------------*/

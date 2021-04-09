@@ -1,0 +1,28 @@
+<nav class="w-full sticky bg-grey-dark text-grey-vlight border-b-2 border-red-600 flex items-center p-2 z-10 top-0 left-0 flex">
+    <section>
+        <div class="p-2 border-r border-grey-light navbar-logo">
+            <a href="{{ path('homepage') }}">Todo App</a>
+        </div>
+    </section>
+    <section class="navbar-hamburger hidden">
+            <span class="navbar-mobile-btn"></span>
+    </section>
+    <section class="navbar-navigation flex flex-grow">
+        <section class="navbar-link flex pl-6 space-x-8 items-center flex-grow">
+            {% if app.user %}
+                <a href="{{ path('task.index') }}" class="hover:bg-grey-medium p-2 rounded">Mes tâches</a>
+                <a href="#" class="hover:bg-grey-medium p-2 rounded">Calendrier</a>
+                <a href="#" class="hover:bg-grey-medium p-2 rounded">Stats</a>
+            {% endif %}
+        </section>
+        <section class="navbar-user flex border-l-2 border-grey-light items-center justify-around ml-auto">
+            {% if app.user %}
+                <a href="#" class="hover:bg-grey-medium rounded p-2">Mon compte</a>
+                <a href="{{ path('security_logout') }}" class="hover:bg-grey-medium rounded p-2">Se déconnecter</a>
+            {% else %}
+                <a href="{{ path('security_register') }}" class="hover:bg-grey-medium rounded p-2">Créer un compte</a>
+                <a href="{{ path('security_login') }}" class="ml-3 hover:bg-grey-medium rounded p-2">Se connecter</a>
+            {% endif %}
+        </section>
+    </section>
+</nav>

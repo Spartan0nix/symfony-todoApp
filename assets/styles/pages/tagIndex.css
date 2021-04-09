@@ -1,0 +1,88 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.input-text > * > textarea {
+    height: 80px;
+}
+
+.main-tag {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+}
+
+.table-container {
+    overflow-y: hidden;
+    margin-bottom: 25px;
+    min-height: 82vh;
+}
+
+.tag-list-section {
+    max-height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.tableau {
+    overflow-y: scroll;
+    width: 85%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+td {
+    border-right: none;
+}
+
+.toolbox {
+    background-color: #E6F0F0;
+    height: 60px;
+}
+.toolbox .btn {
+    font-size: 14px;
+}
+
+@media screen and (max-width: 1000px) {
+    .main-tag {
+        justify-content: space-between;
+    }
+    .tableau {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 880px) {
+    .main-tag {
+        flex-direction: column;
+        align-items: center;
+    }
+    .color-picker-slider {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .main-tag section:nth-child(1){
+        width: 90%;
+    }
+    .main-tag section:nth-child(2){
+        width: 90%;
+    }
+    .modal-content {
+        margin: 2rem 1rem;
+    }
+    .color-picker-select {
+        flex-direction: column;
+    }
+    #color-render {
+        height: 80px;
+        margin-top: 1rem;
+    }
+    .modal-btn {
+        margin-top: 0;
+    }
+}

@@ -1,0 +1,45 @@
+<div class="modal-wrapper addRowModal"> 
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="font-semibold">Ajouter une nouvelle tâche</h2>
+        </div>
+        <div class="modal-content">
+            <div class="input-text">{{form_row(Createform.title)}}</div>
+            <div class="input-text">{{form_row(Createform.description)}}</div>
+            <div class="select-container">
+                <div class="selected">
+                    <div class="selected-header">
+                        <span class="selected-title">Sélectionner un ou plusieurs tags</span>
+                        <span class="reset-tag">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </span>
+                        <span class="open-select">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="selected-tags"></div>
+                </div>
+        
+                <div class="select-options">
+                    {% for tag in Createform.tags_id %}
+                        <div class="options-row">
+                            <div class="options">
+                                <div class="tag">
+                                    {{form_row(tag)}}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="modal-btn">
+            <button type="submit" class="btn btn-primary add-row-submit">Ajouter</button>
+        </div>  
+        <span class="close-modal"><i class="fa fa-times" aria-hidden="true"></i></span>      
+    </div>
+</div>

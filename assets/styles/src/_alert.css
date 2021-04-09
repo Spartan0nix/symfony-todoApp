@@ -1,0 +1,60 @@
+/* 
+    --icon-primary: '<i class="fa fa-info-circle" aria-hidden="true"></i>'
+    --icon-success: '<i class="fa fa-check-circle" aria-hidden="true"></i>'
+    --icon-warning: '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>'
+    --icon-error: '<i class="fa fa-times-circle" aria-hidden="true"></i>'
+    #0077b6
+*/
+.alert {
+    display: flex;
+    position: fixed;
+    top: 8%;
+    right: 5%;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+    /* width: 85%; */
+    background-color: var(--alert-primary);
+    border-radius: 5px;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+.alert-content {
+    display: flex;
+    justify-content: flex-start;
+    padding: 0.8rem 1.2rem;
+}
+.alert-content > span {
+    position: relative;
+    align-self: center;
+    left: 0;
+    margin-left: 5px;
+}
+.alert-content > *:nth-child(2){
+    margin-left: 1em;
+}
+/*----------------------------------------------------------*/
+.alert-progress-bar {
+    height: 6px;
+    background-color: var(--progress-bar);
+    animation: 4s slidein;
+    width: 0;
+}
+/*----------------------------------------------------------*/
+.alert-primary {
+    background-color: var(--alert-primary);
+    color: var(--color-primary);
+}
+.alert-success {
+    background-color: var(--alert-success);
+    color: var(--color-success);
+}
+.alert-warning {
+    background-color: var(--alert-warning);
+    color: var(--color-warning);
+}
+.alert-error {
+    background-color: var(--alert-error);
+    color: var(--color-danger);
+}
+/*----------------------------------------------------------*/

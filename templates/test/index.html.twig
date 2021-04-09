@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Test' %}
+    
+{% block body %}
+    {{ encore_entry_script_tags('colorPicker') }}
+    <div class="main-test">
+
+        <div class="color-picker-container">
+            <div class="color-picker-select">
+                <section class="color-picker-slider">
+                    <label for="color-picker-red">Rouge</label>
+                    <input type="range" min="0" max="255" class="slider" id="color-picker-red">
+                    <label for="color-picker-green">Vert</label>
+                    <input type="range" min="0" max="255" class="slider" id="color-picker-green">
+                    <label for="color-picker-blue">Bleu</label>
+                    <input type="range" min="0" max="255" class="slider" id="color-picker-blue">
+                </section>
+                <section class="color-picker-render">
+                    <div id="color-render"></div>
+                </section>
+            </div>
+            <div class="color-picker-hexa">
+                <label for="hexa-value">Valeur en hexadécimal :</label>
+                <input type="text" class="input-text" value="#FFFFF" id="hexa-value">
+            </div>
+        </div>
+    </div>
+{% endblock %}

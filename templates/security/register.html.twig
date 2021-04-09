@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Créer mon compte' %}
+
+{% block body %}
+<div class="h-full flex justify-center items-center">
+    <div class="w-full">
+        {{form_start(form)}}
+        <div class="modal border-1 border-default mx-auto">
+            <div class="modal-header flex flex-col">
+                <h2 class="font-semibold">Créer un compte</h2>
+            </div>
+            <div class="modal-content">
+                <div class="input-text">{{form_row(form.email)}}</div>
+                <div class="input-text">{{form_row(form.password)}}</div>
+            </div>
+            <div class="modal-btn">
+                <button type="submit" class="btn btn-primary flex justify-center w-full">Créer mon compte</button>
+            </div>    
+        </div>
+        {{form_end(form)}}
+    </div> 
+</div>
+{% endblock %}

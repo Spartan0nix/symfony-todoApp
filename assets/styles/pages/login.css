@@ -1,0 +1,22 @@
+#login-form-wrapper { 
+    background-image: url('/images/book-and-pen.jpg');
+}
+
+#login-form-wrapper input[type='text'] { 
+    background-color: var(--light-grey);
+}
+#login-form-wrapper input[type='password'] { 
+    background-color: var(--light-grey); 
+}
+
+#login-form-wrapper .modal-content { 
+    margin: 1rem 2rem;
+}
+
+#login-form-wrapper .modal-btn { 
+    margin: 1rem 2rem;
+}
+
+#login-form-wrapper .modal-link a { 
+    color: #1c54c4;
+}

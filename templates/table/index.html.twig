@@ -1,0 +1,73 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Gérer vos cartes' %}
+
+{% block body %}
+    {{ parent() }}
+    {# add custom page js file #}
+    {{ encore_entry_script_tags('home') }}
+
+    <div class="page-progress-bar"></div>
+    {# --------------------------------------------------------------------------------- #}
+    {{form_start(Createform)}}
+        {{ include("table/_addModal.html.twig") }}
+    {{form_end(Createform)}}
+    {# --------------------------------------------------------------------------------- #}
+    
+    {# --------------------------------------------------------------------------------- #}
+    <div class="toolbox flex row">
+        <button id="add-row" class="btn btn-primary ml-16 my-auto">
+            <span><i class="fa fa-plus" aria-hidden="true"></i></span>
+            Ajouter une entrée
+        </button>
+        <button id="move-row" class="btn btn-default ml-3 my-auto">
+            <span class="w-5 h-5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                  </svg>
+            </span>    
+            Organiser les tâches
+        </button>
+        <a href="{{ path("tag.index") }}" class="toolbox-tag btn btn-success ml-3 my-auto justify-center">Modifier mes tags</a>
+        <div class="flex row" id="user-button-center"></div>
+    </div>
+    {# --------------------------------------------------------------------------------- #}
+    <div class="flex flex-col table-container">
+        {# <section class=" flex flex-col"> }#
+            
+        {# Display messages and errors to keep user aware #}
+        {# PHP alert #}
+        {% for label, messages in app.flashes(['success', 'error']) %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} mb-5">
+                    <div class="alert-content">
+                        <span><i class="fa fa-check-circle" aria-hidden="true"></i></i></span>
+                        <p>{{ message }}</p>
+                    </div>
+                    <div class="alert-progress-bar"></div>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        
+        {# Javascript alert #}
+        <div id="js-alert" class="alert mb-5" style="display: none;">
+            <div class="alert-content"></div>
+            <div class="alert-progress-bar"></div>
+        </div>
+        {# ---------------------------------------------- #}
+        <section class="tableau">
+            <input type="hidden" name="userToken" value="{{ user.token }}">
+            <table class="main mt-3 mb-3">
+                <tbody id="task-list" class="grid">
+                    {% for task in tasks %}
+                        {{ include("table/_task.html.twig")}}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        {# </section> #}
+    </div>
+    {# --------------------------------------------------------------------------------- #}
+    <div id="modals"></div>
+    
+{% endblock %}

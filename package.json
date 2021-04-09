@@ -1,0 +1,32 @@
+{
+    "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "@symfony/stimulus-bridge": "^1.1.0",
+        "@symfony/webpack-encore": "^0.32.0",
+        "@tailwindcss/postcss7-compat": "^2.0.3",
+        "autoprefixer": "^9.8.6",
+        "core-js": "^3.0.0",
+        "jquery-sortablejs": "^1.0.1",
+        "postcss": "^7.0.35",
+        "postcss-loader": "^3.0.0",
+        "regenerator-runtime": "^0.13.2",
+        "stimulus": "^2.0.0",
+        "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
+        "webpack-notifier": "^1.6.0"
+    },
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "encore dev",
+        "watch": "encore dev --watch",
+        "build": "encore production --progress"
+    },
+    "dependencies": {
+        "jquery": "^3.5.1",
+        "webpack-jquery-ui": "^2.0.1"
+    },
+    "browserslist": [
+        "defaults"
+    ]
+}

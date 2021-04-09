@@ -1,0 +1,44 @@
+/*----------------------------------------------------------*/
+/* Color */
+:root{
+    --border-color: #BEC3C6;
+}
+/*----------------------------------------------------------*/
+/* input type text */
+/*----------------------------------------------------------*/
+.input-text {
+    margin: 5px 8px;
+}
+.input-text > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.input-text > * > label {
+    margin-bottom: 5px;
+}
+.input-text > * > input[type='text'], input[type='password'] ,textarea, input[type='email'] {
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    font-size: 15px;
+    transition: 0.2s ease-in-out;
+    outline: none;
+}
+.input-text > * > input[type='text'], input[type='password'], input[type='email'] {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+}
+.input-text > * > textarea {
+    padding: 5px;
+}
+
+.input-text > * > input[type='text']:focus, input[type='password']:focus, input[type='email']:focus {
+    border-bottom:1px solid var(--color-primary);
+}
+
+.input-text > * > textarea:focus {
+    border-color: var(--color-primary);
+}
+

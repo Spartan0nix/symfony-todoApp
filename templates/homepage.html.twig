@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Todo Application' %}
+
+{% block body %}
+    
+    <div class="homepage-main">
+        <div class="grid grid-cols-2 mx-auto">
+            <article class="flex flex-col justify-center">
+                <section>
+                    <h4 class="border-l-2 border-r-2 border-red-medium pl-6 pr-6">PLANIFIER VOS TÂCHES</h4>
+                    <h4 class="border-l-2 border-r-2 border-red-medium pl-6 pr-6">RESTEZ ORGANISÉ</h4>
+                </section>
+                <section class="mt-6 pl-6 pr-6">
+                    <div>
+                        <p>Assurez-vous la victoire en gardant une trace écrire et en suivant l’avancement  de vos objectifs.</p>
+                    </div>
+                    <div>
+                        <p class="text-primary">Accessible directement en ligne.</p>
+                    </div>
+                </section>
+            </article>
+            <img src="/images/homepage/homepage-illustration.png" alt="illustration" class="my-auto ml-20">
+        </div>
+    </div>
+    <div class="homepage-demo flex">
+        <section class="homepage-demo-img">
+            <img src="/images/homepage/demo/homepage-demo-update.PNG" alt="demo mise à jour" class="demo-update">
+            <img src="/images/homepage/demo/homepage-demo-add.PNG" alt="demo ajout" class="demo-add">
+        </section>
+        <section class="homepage-demo-text ">
+            <p>Ajouter et mettez à jour vos tâches</p>
+        </section>
+    </div>
+    <div class="homepage-list flex">
+        <section class="homepage-demo-text text-center">
+            <p>Prioriser et organiser vos tâches au travers des tags.</p>
+        </section>
+        <section class="homepage-demo-img">
+            <img src="/images/homepage/demo/homepage-demo-list.PNG" alt="demo list" class="demo-list">
+        </section>
+    </div>
+{% endblock %}

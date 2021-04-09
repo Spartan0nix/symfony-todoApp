@@ -1,0 +1,7 @@
+.page-progress-bar {
+    height: 8px;
+    background-color: var(--progress-bar);
+    animation: 1s linear 0.5s slidein;
+    width: 0;
+    position: absolute;
+}

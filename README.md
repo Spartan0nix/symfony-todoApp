@@ -2,4 +2,4 @@
 
 Premier projet sur Symfony.
 
-First Sysmfony Project
+First Symfony Project

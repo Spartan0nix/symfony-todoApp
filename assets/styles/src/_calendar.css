@@ -8,7 +8,7 @@
 /*---------------------------------------------------------------*/
 .calendar-header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: var(--dark-grey);
     color: white;
@@ -31,5 +31,20 @@
     text-align: center;
     background-color: var(--vlight-grey);
     padding: 2px;
+}
+/*---------------------------------------------------------------*/
+.currentDay {
+    background-color: var(--medium-grey);
+    color: white;
+    border-radius: 5px;
+}
+.calendar-days p:hover {
+    background-color: var(--light-grey);
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.calendar-header span:hover, .calendar-header span > *:hover{
+    cursor: pointer;
 }
 /*---------------------------------------------------------------*/

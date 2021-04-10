@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Calendrier' %}
+
+{% block body %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('calendar') }}
+
+    <div class="calendar-container">
+        <section class="calendar-header"></section>
+        <section class="calendar-weekdays">
+            <p>Lun</p>
+            <p>Mar</p>
+            <p>Mer</p>
+            <p>Jeu</p>
+            <p>Ven</p>
+            <p>Sam</p>
+            <p>Dim</p>
+        </section>
+        <section class="calendar-days"></section>
+    </div>
+
+{% endblock %}

@@ -11,7 +11,7 @@
         <section class="navbar-link flex pl-6 space-x-8 items-center flex-grow">
             {% if app.user %}
                 <a href="{{ path('task.index') }}" class="hover:bg-grey-medium p-2 rounded">Mes tâches</a>
-                <a href="#" class="hover:bg-grey-medium p-2 rounded">Calendrier</a>
+                <a href="{{ path('calendar.index') }}" class="hover:bg-grey-medium p-2 rounded">Calendrier</a>
                 <a href="#" class="hover:bg-grey-medium p-2 rounded">Stats</a>
             {% endif %}
         </section>

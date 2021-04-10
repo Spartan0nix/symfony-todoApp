@@ -26,6 +26,7 @@ Encore
     .addEntry('home', './assets/js/home/index.js')
     .addEntry('tagPage', './assets/js/tag/index.js')
     .addEntry('colorPicker', './assets/js/components/colorPicker.js')
+    .addEntry('calendar', './assets/js/components/calendar.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

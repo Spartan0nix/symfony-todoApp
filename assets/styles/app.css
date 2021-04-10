@@ -49,6 +49,7 @@ body {
 @import "./src/_footer.css";
 @import "./src/_list.css";
 @import "./src/_colorPicker.css";
+@import "./src/_calendar.css";
 /*----------------------------------------------------------*/
 /* Import Animations */
 @import "./src/_animations.css";

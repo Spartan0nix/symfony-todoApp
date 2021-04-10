@@ -25,50 +25,51 @@
         <div class="alert-content"></div>
         <div class="alert-progress-bar"></div>
     </div>
-
-    <div class="main-tag">
-        <section>
-            {{ form_start(form) }}
-                <div class="modal ml-5 mt-8 border-1 border-grey-medium">
-                    <div class="modal-header">
-                        <h2 class="font-semibold">Créer un tag</h2>
+    <div id="tagIndex">
+        <div class="main-tag">
+            <section>
+                {{ form_start(form) }}
+                    <div class="modal ml-5 mt-8 border-1 border-grey-medium">
+                        <div class="modal-header">
+                            <h2 class="font-semibold">Créer un tag</h2>
+                        </div>
+                        <div class="modal-content">
+                            <div class="input-text">{{form_row(form.name)}}</div>
+                            {{ include("tag/_colorPicker.html.twig") }}
+                        </div>
+                        <div class="modal-btn">
+                            <button type="submit" class="btn btn-primary add-row-submit">Ajouter</button>
+                        </div>
                     </div>
-                    <div class="modal-content">
-                        <div class="input-text">{{form_row(form.name)}}</div>
-                        {{ include("tag/_colorPicker.html.twig") }}
-                    </div>
-                    <div class="modal-btn">
-                        <button type="submit" class="btn btn-primary add-row-submit">Ajouter</button>
-                    </div>
-                </div>
-            {{ form_end(form) }}
-        </section>
-        <section class="w-2/5 tag-list-section">
-            <input type="hidden" name="userToken" value="{{ userToken }}">
-            <table class="tableau tag-list">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for tag in tags %}
-                    <tr id="{{ tag.id }}" class="_tag">
-                        <td class="table-content"> 
-                             <div class="tag mx-auto" style="background-color: {{ tag.color }};">
-                                {{ tag.name }}
-                            </div>
-                        </td>
-                        <td class="table-action flex justify-center">
-                            <button class="btn btn-primary edit-btn"><i class="fa fa-wrench" aria-hidden="true"></i></button>
-                            <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
+                {{ form_end(form) }}
+            </section>
+            <section class="w-2/5 tag-list-section">
+                <input type="hidden" name="userToken" value="{{ userToken }}">
+                <table class="tableau tag-list">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tag in tags %}
+                        <tr id="{{ tag.id }}" class="_tag">
+                            <td class="table-content"> 
+                                <div class="tag mx-auto" style="background-color: {{ tag.color }};">
+                                    {{ tag.name }}
+                                </div>
+                            </td>
+                            <td class="table-action flex justify-center">
+                                <button class="btn btn-primary edit-btn"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+                                <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+        <div id="modals"></div>
     </div>
-    <div id="modals"></div>
 {% endblock %}

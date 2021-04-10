@@ -58,5 +58,6 @@ body {
 @import "./pages/tagIndex.css";
 @import "./pages/login.css";
 @import "./pages/homepage.css";
+@import "./pages/common.css";
 /*----------------------------------------------------------*/
 

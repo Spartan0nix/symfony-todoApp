@@ -7,6 +7,7 @@
     {{ encore_entry_script_tags('calendar') }}
 
     <div class="calendar-container">
+    <input type="hidden" name="apiToken" value={{ token }}>
         <section class="calendar-header">
             <span id="last-month">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

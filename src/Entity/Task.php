@@ -55,6 +55,11 @@ class Task
      */
     private $user_id;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $due_date;
+
     public function __construct()
     {
         $this->created_at = new \DateTime();
@@ -160,6 +165,18 @@ class Task
     public function setUserId(?User $user_id): self
     {
         $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    public function getDueDate(): ?\DateTimeInterface
+    {
+        return $this->due_date;
+    }
+
+    public function setDueDate(?\DateTimeInterface $due_date): self
+    {
+        $this->due_date = $due_date;
 
         return $this;
     }

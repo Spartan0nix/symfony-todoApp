@@ -1,3 +1,5 @@
+import { displayFlash } from "../helper.js";
+
 const month = { 1: 'Janvier', 2: 'Février', 3: 'Mars', 4: 'Avril', 5: 'Mai', 6: 'Juin', 7: 'Juillet', 8: 'Août', 9: 'Septembre', 10: 'Octobre', 11: 'Novembre', 12: 'Décembre'}
 var currentDate = new Date();
 var currentMonth = currentDate.getMonth()+1;
@@ -21,19 +23,7 @@ document.addEventListener('click', function(event) {
 /**
  * Start
  */
-init();
-
-function init() {
-    let numberOfDays = getDaysInMonth(currentMonth, currentYear);
-    let currentDay = '#day-'+currentDate.getDate();
-
-    monthContainer.querySelector('h3').innerHTML = month[currentMonth];
-    for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<p id="day-${index}">${index}</p>`
-    }
-    
-    daysContainer.querySelector(currentDay).classList.toggle('currentDay');
-}
+getDueTasks("page-loaded");
 
 
 /**
@@ -46,7 +36,7 @@ function getLastMonth(){
         currentYear -= 1;
         currentMonth = 12;
     }
-    updateCalendar();
+    getDueTasks("update-calendar");
 }
 
 /**
@@ -59,18 +49,76 @@ function getNextMonth(){
         currentYear += 1;
         currentMonth = 1;
     }
-    updateCalendar();
+    getDueTasks("update-calendar");
 }
 
-/*---------------------------------------------------------------*/
-/*    Helpers                                                    */
-/*---------------------------------------------------------------*/
+
+/**
+ * Get all the due tasks for the current Month
+ * @param {String} trigger 
+ */
+function getDueTasks(trigger){
+    var request = new XMLHttpRequest();
+    var Apitoken = document.querySelector('input[name="apiToken"').value;
+    
+    if(currentMonth < 10) {
+        var month = "0"+currentMonth;
+    }
+    
+    function handleResponse(){
+        if(request.readyState === 4 && request.status === 200){
+            var response = JSON.parse(request.responseText);
+            // User just accessed the page
+            if(trigger === "page-loaded") {
+                createCalendar(response.tasks);
+            }else if(trigger === "update-calendar"){
+                // getDueTasks was called when the user change the current Month
+                updateCalendar(response.tasks);
+            }
+        }else if(request.status === 400){
+            var response = JSON.parse(request.responseText);
+            displayFlash("warning", response.message)
+        }else if(request.status === 404){
+            var response = JSON.parse(request.responseText);
+            displayFlash("error", response.message)
+        }
+    }
+
+    request.open('GET', '/api/calendar/tasks?month='+month, true);
+    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    request.setRequestHeader('X-Auth-Token', Apitoken);
+    request.onreadystatechange = handleResponse;
+    request.send(null);
+}
+
+/**
+ * Create the calendar when loading the page 
+ * @param {Array} tasks 
+ */
+ function createCalendar(tasks) {
+    let numberOfDays = getDaysInMonth(currentMonth, currentYear);
+    let currentDay = '#day-'+currentDate.getDate();
+
+    monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
+    for (let index = 1; index <= numberOfDays; index++) {
+        daysContainer.innerHTML += `<p id="day-${index}">${index}</p>`
+    }
+
+    tasks.forEach(element => {
+        let dayIndex = '#day-'+element['due_date'].slice(8,10);
+        daysContainer.querySelector(dayIndex).innerHTML += `<p>${element['title']}</p>`;
+    });
+    
+    daysContainer.querySelector(currentDay).classList.toggle('currentDay');
+    
+}
+
 /**
  * Update calendar innerHTML
  */
-function updateCalendar(){
+ function updateCalendar(tasks){
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
-    monthContainer.querySelector('h3').innerHTML = month[currentMonth];
+    monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
     daysContainer.innerHTML = '';
 
     for (let index = 1; index <= numberOfDays; index++) {
@@ -81,6 +129,11 @@ function updateCalendar(){
         let currentDay = '#day-'+currentDate.getDate();
         daysContainer.querySelector(currentDay).classList.toggle('currentDay');
     }
+
+    tasks.forEach(element => {
+        let dayIndex = '#day-'+element['due_date'].slice(8,10);
+        daysContainer.querySelector(dayIndex).innerHTML += `<p>${element['title']}</p>`;
+    });
 }
 
 /**
@@ -88,6 +141,6 @@ function updateCalendar(){
  * @param {Number} month 
  * @param {Number} year 
  */
-function getDaysInMonth(month, year){
+ function getDaysInMonth(month, year){
     return new Date(year, month, 0).getDate();
 }

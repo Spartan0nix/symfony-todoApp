@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +23,7 @@ class HomeController extends AbstractController
      */
     public function test(Request $request): Response{
 
-        $tag = $this->getDoctrine()->getRepository(Tag::class)->findOneBy(["id" => 25]);
-
-        dump($tag);
+        dump($this->getUser()->getId());
        
         return $this->render('test/index.html.twig', [
             

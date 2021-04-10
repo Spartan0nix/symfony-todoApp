@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -94,5 +95,18 @@ class TaskRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute()
         ;
+    }
+
+    public function findDueTask($month, $userId){
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = 'SELECT * FROM public.task WHERE EXTRACT(MONTH FROM due_date) = :month and user_id = :userId ;';
+        // Execute queries
+        $query = $conn->prepare($sql);
+        $query->execute(['month' => $month, 'userId' => $userId]);
+
+        $task = $query->fetchAllAssociative();
+
+        return $task;
     }
 }

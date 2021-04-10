@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: 3rem auto;
-    width: 400px;
+    width: 80%;
     border: 2px solid var(--color-default);
 }
 /*---------------------------------------------------------------*/
@@ -28,6 +28,7 @@
 .calendar-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(5, 150px);
     text-align: center;
     background-color: var(--vlight-grey);
     padding: 2px;

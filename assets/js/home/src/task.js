@@ -138,7 +138,7 @@ function openUpdateModal(){
                                                                         <div class="input-text description">
                                                                             <div>
                                                                                 <label for="task-${ userTask.id }-description">Description</label>
-                                                                                <textarea id="task-${ userTask.id }-description" name="description" cols="30" rows="10">${ userTask.description }</textarea>   
+                                                                                <textarea id="task-${ userTask.id }-description" name="description" cols="10" rows="5">${ userTask.description }</textarea>   
                                                                             </div>
                                                                         </div>
                                                                         ${tagSelector}

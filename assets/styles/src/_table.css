@@ -5,14 +5,27 @@
 }
 /*----------------------------------------------------------*/
 /* Table default property */
-.tableau table, th, td {
+.tableau table, .tableau th, .tableau td {
     border-collapse: collapse;
     padding: 1em;
     font-size: 14px;
 }
 
+.tableau {
+    overflow-y: scroll;
+    width: 85%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 700px;
+}
+
+.tableau table {
+    width: 100%;
+}
+
 /* Add border right to the right of each td and th */
-.tableau th, td { border-right: 1px solid var(--border-color); }
+.tableau th, .tableau td { border-right: 1px solid var(--border-color); }
 
 /* Add border bottom to each tr */
 .tableau tr { border-bottom: 1px solid var(--border-color); }

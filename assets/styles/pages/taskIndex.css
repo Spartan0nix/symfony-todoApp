@@ -1,24 +1,27 @@
-.toolbox button, .toolbox a  { 
+#taskIndex .toolbox button, .toolbox a  { 
     width: 180px; 
 }
 
+#taskIndex td {
+    border-right: none;
+}
+
 @media screen and (max-width: 670px){
-    .toolbox {
+    #taskIndex .toolbox {
         display: grid !important;
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         grid-gap: 5px;
         padding: 10px;
         height: auto !important;
     }
-    .toolbox button, .toolbox a { 
+    #taskIndex .toolbox button, .toolbox a { 
         margin: auto; 
     }
-    ._button {
+    #taskIndex ._button {
         display: grid !important;
-        /* grid-template-columns: repeat(2, auto); */
         grid-template-columns: 80px auto;
     }
-    .checkbox {
+    #taskIndex .checkbox {
         margin: auto;
     }
 }

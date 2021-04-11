@@ -7,7 +7,7 @@ var currentYear = currentDate.getFullYear();
 
 var monthContainer = document.querySelector('.calendar-header');
 var weekDaysContainer = document.querySelector('.calendar-weekdays');
-var daysContainer = document.querySelector('.calendar-days');
+var daysContainer = document.querySelector('.calendar-days-display');
 
 /**
  * Event listener to change month
@@ -98,15 +98,23 @@ function getDueTasks(trigger){
  function createCalendar(tasks) {
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
     let currentDay = '#day-'+currentDate.getDate();
+    if(currentMonth < 10) {
+        var month = "0"+currentMonth;
+    }
 
     monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
     for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<p id="day-${index}">${index}</p>`
+        daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
+                                        <span class="day-title">
+                                            ${index}
+                                            <a class="day-info" href="/calendrier/${index}-${month}-${currentYear}/tasks"></a>
+                                        </span>
+                                    </p>`
     }
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p>${element['title']}</p>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
     });
     
     daysContainer.querySelector(currentDay).classList.toggle('currentDay');
@@ -120,9 +128,17 @@ function getDueTasks(trigger){
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
     monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
     daysContainer.innerHTML = '';
+    if(currentMonth < 10) {
+        var month = "0"+currentMonth;
+    }
 
     for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<p id="day-${index}">${index}</p>`
+        daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
+                                        <span class="day-title">
+                                            ${index}
+                                            <a class="day-info" href="/calendrier/${index}-${month}-${currentYear}/tasks"></a>
+                                        </span>
+                                    </p>`
     }
 
     if(currentMonth === currentDate.getMonth() + 1){
@@ -132,7 +148,7 @@ function getDueTasks(trigger){
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p>${element['title']}</p>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
     });
 }
 

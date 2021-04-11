@@ -47,32 +47,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.day-info {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 5px;
-    top: 2px;
-}
-.day-info::after {
-    content: '';
-    position: absolute;
-    background-color: black;
-    width: 10px;
-    height: 2px;
-    top: 10px;
-    right: 5px;
-}
-.day-info::before {
-    content: '';
-    position: absolute;
-    background-color: black;
-    width: 10px;
-    height: 2px;
-    top: 10px;
-    right: 5px;
-    transform: rotate(90deg);
-}
+
 /*---------------------------------------------------------------*/
 .currentDay {
     background-color: var(--medium-grey);

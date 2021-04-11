@@ -105,16 +105,13 @@ function getDueTasks(trigger){
     monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
     for (let index = 1; index <= numberOfDays; index++) {
         daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
-                                        <span class="day-title">
-                                            ${index}
-                                            <a class="day-info" href="/calendrier/${index}-${month}-${currentYear}/tasks"></a>
-                                        </span>
+                                        <span class="day-title">${index}</span>
                                     </p>`
     }
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<a class="calendar-task" href="/task/${element['id']}/details">${element['title']}</a>`;
     });
     
     daysContainer.querySelector(currentDay).classList.toggle('currentDay');
@@ -134,10 +131,7 @@ function getDueTasks(trigger){
 
     for (let index = 1; index <= numberOfDays; index++) {
         daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
-                                        <span class="day-title">
-                                            ${index}
-                                            <a class="day-info" href="/calendrier/${index}-${month}-${currentYear}/tasks"></a>
-                                        </span>
+                                        <span class="day-title">${index}</span>
                                     </p>`
     }
 
@@ -148,7 +142,7 @@ function getDueTasks(trigger){
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<a class="calendar-task" href="/task/${element['id']}/details">${element['title']}</a>`;
     });
 }
 

@@ -2,6 +2,8 @@
 
 namespace App\Controller\Tag\Api;
 
+use App\Controller\Normalizer\TagNormalizer;
+use App\Controller\Normalizer\TaskNormalizer;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,12 +26,21 @@ class ApiTagController extends AbstractController
      * @var CsrfTokenManagerInterface
      */
     private $tokenProvider;
+    /**
+     * @var TagNormalizer
+     */
+    private $tagNormalizer;
 
-    public function __construct(TagRepository $TagRepository, EntityManagerInterface $em, CsrfTokenManagerInterface $tokenProvider)
+    public function __construct(
+        TagRepository $TagRepository, 
+        EntityManagerInterface $em, 
+        CsrfTokenManagerInterface $tokenProvider,
+        TagNormalizer $tagNormalizer)
     {
         $this->TagRepository = $TagRepository;
         $this->em = $em;
         $this->tokenProvider = $tokenProvider;
+        $this->tagNormalizer = $tagNormalizer;
     }
 
     /*----------------------------------------------------------------------------------------------------*/
@@ -51,7 +62,7 @@ class ApiTagController extends AbstractController
             $arrayTags = array();
 
             foreach($tags as $tag){
-                array_push($arrayTags, $this->normalizeTag($tag));
+                array_push($arrayTags, $this->tagNormalizer->normalizeTag($tag));
             }
 
             if(!$tags){
@@ -89,7 +100,7 @@ class ApiTagController extends AbstractController
 
             return new JsonResponse(array(
                 'status' => 'success',
-                'tag' => $this->normalizeTag($tag),
+                'tag' => $this->tagNormalizer->normalizeTag($tag),
                 'token' => $token
             ), 200);
         }
@@ -161,7 +172,7 @@ class ApiTagController extends AbstractController
 
             return new JsonResponse(array(
                 'status' => 'success',
-                'tag' => $this->normalizeTag($tag),
+                'tag' => $this->tagNormalizer->normalizeTag($tag),
                 'message' => "Tag mise à jour avec succés."
             ), 200);
         }
@@ -186,25 +197,6 @@ class ApiTagController extends AbstractController
         return array(
             'status' => 'error',
             'message' => "Jeton invalide."
-        );
-    }
-
-    public function normalizeTask($task){
-        return array(
-            'id' => $task->getId(),
-            'title' => $task->getTitle(),
-            'description' => $task->getDescription(),
-            'finish' => $task->getFinish(),
-            'created_at' => $task->getCreatedAt(),
-            'position' => $task->getPosition(),
-        );
-    }
-
-    public function normalizeTag($tag){
-        return array(
-            'id' => $tag->getId(),
-            'name' => $tag->getName(),
-            'color' => $tag->getColor()
         );
     }
     /*----------------------------------------------------------------------------------------------------*/

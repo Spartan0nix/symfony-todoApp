@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+
+{% block title 'Gérer ma tâche' %}
+    
+{% block body %}    
+    {{ parent() }}
+
+    {# Display messages and errors to keep user aware #}
+    {# PHP alert #}
+    {% for label, messages in app.flashes(['success', 'error']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} mb-5">
+                <div class="alert-content">
+                    <span><i class="fa fa-check-circle" aria-hidden="true"></i></i></span>
+                    <p>{{ message }}</p>
+                </div>
+                <div class="alert-progress-bar"></div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {# Javascript alert #}
+    <div id="js-alert" class="alert mb-5" style="display: none;">
+        <div class="alert-content"></div>
+        <div class="alert-progress-bar"></div>
+    </div>
+    <div id="taskInfo">
+       <h4>Task Info</h4>
+    </div>
+{% endblock %}

@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 class TagController extends AbstractController
 {
@@ -25,20 +22,11 @@ class TagController extends AbstractController
      * @var EntityManagerInterface
      */
     private $em;
-    /**
-     * @var Serializer
-     */
-    private $serializer;
 
     public function __construct(TagRepository $TagRepository, EntityManagerInterface $em)
     {
         $this->TagRepository = $TagRepository;
         $this->em = $em;
-
-        $encoders = [new JsonEncoder()];
-        $normalizers = [new ObjectNormalizer()];
-
-        $this->serializer = new Serializer($normalizers, $encoders);
     }
 
     /**
@@ -46,15 +34,6 @@ class TagController extends AbstractController
      * @return Response
      */
     public function index(Request $request): Response{
-
-        // $users= $this->getDoctrine()->getRepository(User::class)->findAll();
-        // $tags = $this->TagRepository->findAll();
-        // foreach($users as $user){
-        //     foreach($tags as $tag){
-        //         $user->addTag($tag);
-        //     }
-        // }
-        // $this->em->flush();
 
         $tags = $this->getUser()->getTags();
 

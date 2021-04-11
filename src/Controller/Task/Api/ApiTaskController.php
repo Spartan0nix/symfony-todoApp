@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Controller\Normalizer\TagNormalizer;
+use App\Controller\Normalizer\TaskNormalizer;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -33,8 +35,23 @@ class ApiTaskController extends AbstractController
      * @var CsrfTokenManagerInterface
      */
     private $tokenProvider;
+    /**
+     * @var TagNormalizer
+     */
+    private $tagNormalizer;
+    /**
+     * @var TaskNormalizer
+     */
+    private $taskNormalizer;
 
-    public function __construct(TaskRepository $TaskRepository,TagRepository $TagRepository, EntityManagerInterface $em, CsrfTokenManagerInterface $tokenProvider)
+    public function __construct(
+        TaskRepository $TaskRepository,
+        TagRepository $TagRepository, 
+        EntityManagerInterface $em, 
+        CsrfTokenManagerInterface $tokenProvider,
+        TagNormalizer $tagNormalizer,
+        TaskNormalizer $taskNormalizer
+        )
     {
         // On initialise l'entityManager et le TaskRepository
         // Le TaskRepository permet d'intéragir avec la BDD comme un Model en architecture MVC
@@ -43,6 +60,8 @@ class ApiTaskController extends AbstractController
         $this->TagRepository = $TagRepository;
         $this->em = $em;
         $this->tokenProvider = $tokenProvider;
+        $this->tagNormalizer = $tagNormalizer;
+        $this->taskNormalizer = $taskNormalizer;
     }
 
     /*----------------------------------------------------------------------------------------------------*/
@@ -69,14 +88,14 @@ class ApiTaskController extends AbstractController
             $tags = $task->getTagsId();
             $userTags = $this->getUser()->getTags();
 
-            $arrayTask = $this->normalizeTask($task);
+            $arrayTask = $this->taskNormalizer->normalizeTask($task);
             $arrayTask['tags'] = array();
  
             foreach($tags as $tag){
-                array_push($arrayTask['tags'], $this->normalizeTag($tag));
+                array_push($arrayTask['tags'], $this->tagNormalizer->normalizeTag($tag));
             }
             foreach($userTags as $tag){
-                array_push($arrayTags, $this->normalizeTag($tag));
+                array_push($arrayTags, $this->tagNormalizer->normalizeTag($tag));
             }
 
             if(!$task){
@@ -249,12 +268,12 @@ class ApiTaskController extends AbstractController
 
             $updatedTags = array();
             foreach($task->getTagsId() as $tag){
-                array_push($updatedTags, $this->normalizeTag($tag));
+                array_push($updatedTags, $this->tagNormalizer->normalizeTag($tag));
             }
 
             return new JsonResponse(array(
                 'status' => 'success',
-                'task' => $this->normalizeTask($task),
+                'task' => $this->taskNormalizer->normalizeTask($task),
                 'tags' => $updatedTags,
                 'message' => "Tâche modifié avec succés.",
             ), 200);
@@ -309,25 +328,6 @@ class ApiTaskController extends AbstractController
         return array(
             'status' => 'error',
             'message' => "Jeton invalide."
-        );
-    }
-
-    public function normalizeTask($task){
-        return array(
-            'id' => $task->getId(),
-            'title' => $task->getTitle(),
-            'description' => $task->getDescription(),
-            'finish' => $task->getFinish(),
-            'created_at' => $task->getCreatedAt(),
-            'position' => $task->getPosition(),
-        );
-    }
-
-    public function normalizeTag($tag){
-        return array(
-            'id' => $tag->getId(),
-            'name' => $tag->getName(),
-            'color' => $tag->getColor()
         );
     }
     /*----------------------------------------------------------------------------------------------------*/

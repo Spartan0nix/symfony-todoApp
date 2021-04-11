@@ -2,6 +2,7 @@
 
 namespace App\Controller\Task;
 
+use App\Controller\Normalizer\TaskNormalizer;
 use App\Entity\Tag;
 use App\Entity\Task;
 use App\Entity\User;
@@ -10,6 +11,7 @@ use App\Repository\TaskRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,14 +29,19 @@ class TaskController extends AbstractController
      * @var EntityManagerInterface
      */
     private $em;
+    /**
+     * @var TaskNormalizer
+     */
+    private $taskNormalizer;
 
-    public function __construct(TaskRepository $TaskRepository, EntityManagerInterface $em)
+    public function __construct(TaskRepository $TaskRepository, EntityManagerInterface $em, TaskNormalizer $taskNormalizer)
     {
         // On initialise l'entityManager et le TaskRepository
         // Le TaskRepository permet d'intéragir avec la BDD comme un Model en architecture MVC
         // L'entityManager lui permet d'intéragir avec les entités (les faires persistés en BDD, portés les modifications en BDD, ...)
         $this->TaskRepository = $TaskRepository;
         $this->em = $em;
+        $this->taskNormalizer = $taskNormalizer;
     }
 
     /**
@@ -49,26 +56,13 @@ class TaskController extends AbstractController
         $EntityTasks = $this->TaskRepository->findData($userId);
         $taskAsArray = [];
 
-        // $tag = $this->getDoctrine()->getRepository(Tag::class)->find(26);
-        // $usertask = $this->TaskRepository->find(77);
-        // $usertask->addTagsId($tag);
-        // $this->em->flush();
-
         /**
          * Return an array instead of an Entity
          * Also remove user password field
          */
         $i = 0;
         foreach($EntityTasks as $task){
-            $taskAsArray[$i] = array(
-                "id" => $task->getId(),
-                "title" => $task->getTitle(),
-                "description" => $task->getDescription(),
-                "finish" => $task->getFinish(),
-                "created_at" => $task->getCreatedAt(),
-                "position" => $task->getPosition(),
-                "tags" => $task->getTagsId()->unwrap()
-            );
+            $taskAsArray[$i] = $this->taskNormalizer->normalizeTask($task);
             $i++;
         }
         
@@ -109,6 +103,21 @@ class TaskController extends AbstractController
         ]);
     }
     
+    /**
+     * @Route("/task/{id}/details", name="task.info")
+     * @return JsonResponse
+     */
+    public function taskInfo(String $id){
+
+        $task = $this->TaskRepository->find($id);
+
+        $task = $this->taskNormalizer->normalizeTask($task);
+
+        dump($task);
+
+        return $this->render("task/index.html.twig");
+    }
+
     /*----------------------------------------------------------------------------------------------------*/
     public function taskNotFound(){
         $this->addFlash("error","La tâche sélectionnée n'a pas été trouvée.");

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Task;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +25,10 @@ class HomeController extends AbstractController
      */
     public function test(Request $request): Response{
 
-        dump($this->getUser()->getId());
+        // $task = $this->getDoctrine()->getRepository(Task::class)->find(83);
+        // $task->setDueDate(new \DateTime('midnight +3days'));
+        // $this->getDoctrine()->getManager()->flush();
+        // dump($task);
        
         return $this->render('test/index.html.twig', [
             

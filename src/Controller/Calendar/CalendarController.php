@@ -42,6 +42,19 @@ class CalendarController extends AbstractController
     }
 
     /**
+     * @Route("/calendrier/{day}-{month}-{year}/tasks", name="calendar.day.tasks")
+     * @return Response
+     */
+    public function dayTask(String $day, String $month, String $year): Response {
+        $timestamp = strtotime($day."-".$month."-".$year);
+        $date = date('j-M-Y', $timestamp);
+
+        dump($date);
+        
+        return $this->render("calendar/day.html.twig");
+    }
+
+    /**
      * @Route("/api/calendar/tasks",name="calendar.tasks",methods="GET")
      * @return JsonResponse
      */
@@ -69,6 +82,7 @@ class CalendarController extends AbstractController
     }
 
 
+    /*----------------------------------------------------------------------------------------------------*/
     public function isNotXmlHttpRequest(){
         return array(
             "status" => "error",
@@ -82,4 +96,5 @@ class CalendarController extends AbstractController
             "message" => "La tâche sélectionnée n'a pas été trouvée."
         );
     }
+    /*----------------------------------------------------------------------------------------------------*/
 }

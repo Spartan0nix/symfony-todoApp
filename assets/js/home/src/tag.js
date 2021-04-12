@@ -1,21 +1,28 @@
 /*----------------------------------------------------------------------------------------------*/
 /*    EventListener for tags interactions                                                       */
 /*----------------------------------------------------------------------------------------------*/
-const addRowModal = document.querySelector('.addRowModal');
-const AddRowSelectContainer = addRowModal.querySelector('.select-container');
-const selectOption = document.querySelector('.select-options');
+if(document.querySelector('.addRowModal')){
+    const addRowModal = document.querySelector('.addRowModal');
+    const AddRowSelectContainer = addRowModal.querySelector('.select-container');
+    // Automatically change tag background color for addModal Tag
+    AddRowSelectContainer.querySelectorAll('input[type="checkbox"]').forEach(element => {
+        var color = element.attributes.color.value;
+        // Get the tag element
+        var tag = element.parentNode.parentNode.parentNode;
+        // Update the tag background color
+        tag.style.backgroundColor = color;
 
-// Automatically change tag background color for addModal Tag
-AddRowSelectContainer.querySelectorAll('input[type="checkbox"]').forEach(element => {
-    var color = element.attributes.color.value;
-    // Get the tag element
-    var tag = element.parentNode.parentNode.parentNode;
-    // Update the tag background color
-    tag.style.backgroundColor = color;
+        //Prevent checkbox from beeing checked by default
+        element.checked = false;
+    })
 
-    //Prevent checkbox from beeing checked by default
-    element.checked = false;
-})
+    // Reset the selected-tags box
+    document.querySelector('.reset-tag').addEventListener('click', resetTag);
+}
+
+if(document.querySelector('.select-options')){
+    const selectOption = document.querySelector('.select-options');
+}
 
 // Automaticaly add the tag color background for each tags under the tasks
 document.querySelectorAll('.tag-color-input').forEach(element => {
@@ -55,9 +62,6 @@ document.querySelector('#modals').addEventListener('click', function(event){
         addTag(event,event.target.closest('.tag'));
     }
 })
-
-// Reset the selected-tags box
-document.querySelector('.reset-tag').addEventListener('click', resetTag);
 
 /*----------------------------------------------------------------------------------------------*/
 /*    JS Functions                                                                              */

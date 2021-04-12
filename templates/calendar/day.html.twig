@@ -1,11 +1,67 @@
 {% extends "base.html.twig" %}
 
-{% block title 'Tâches du jour' %}
-
-{% block body %}
+{% block title 'Gérer ma tâche' %}
+    
+{% block body %}    
     {{ parent() }}
-    {# {{ encore_entry_script_tags('calendar') }} #}
+    {{ encore_entry_script_tags('calendarTask') }}
 
-    <h4>Hello</h4>
-
+    {# Display messages and errors to keep user aware #}
+    {# PHP alert #}
+    {% for label, messages in app.flashes(['success', 'error']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} mb-5">
+                <div class="alert-content">
+                    <span><i class="fa fa-check-circle" aria-hidden="true"></i></i></span>
+                    <p>{{ message }}</p>
+                </div>
+                <div class="alert-progress-bar"></div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {# Javascript alert #}
+    <div id="js-alert" class="alert mb-5" style="display: none;">
+        <div class="alert-content"></div>
+        <div class="alert-progress-bar"></div>
+    </div>
+    <div id="taskInfo">
+        <section class="tableau">
+            <input type="hidden" name="userToken" value="{{ userToken }}">
+            <table class="main mt-3 mb-3">
+                <tbody id="task-list" class="grid">
+                    {% for task in tasks %}
+                        {% if task.finish %}
+                            <tr class="_button theme-success flex" id="{{ task.id }}">
+                                <td class="checkbox">
+                                    <button class="btn btn-checkbox checked"><span><i class="fa fa-check fa-lg" aria-hidden="true"></i></span></button>
+                        {% else %}
+                            <tr class="_button flex" id="{{ task.id }}">
+                                <td class="checkbox">
+                                    <button class="btn btn-checkbox uncheck"></button>
+                        {% endif %}
+                                </td>
+                            <td class="table-content"> 
+                                <h4>{{ task.title }}</h4>
+                                <p>{{ task.description }}</p>
+                                <div class="task-tags-display flex items-start">
+                                    {% for tag in task.tags %}
+                                        <div class="tag ml-3 mt-1">
+                                            <input type="hidden" class="tag-color-input" color="{{ tag.color }}">
+                                            {{ tag.name }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </td>
+                            <td class="table-action ml-auto">
+                                <button class="btn btn-primary edit-btn"><i class="fa fa-wrench" aria-hidden="true"></i></button>
+                                <button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+    {# --------------------------------------------------------------------------------- #}
+    <div id="modals"></div>
 {% endblock %}

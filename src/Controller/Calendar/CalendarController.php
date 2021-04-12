@@ -2,6 +2,7 @@
 
 namespace App\Controller\Calendar;
 
+use App\Controller\Normalizer\TaskNormalizer;
 use App\Repository\TaskRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,15 +19,19 @@ class CalendarController extends AbstractController
      * @var TaskRepository
      */
     private $taskRepository;
-
+    /**
+     * @var TaskNormalizer
+     */
+    private $taskNormalizer;
     /**
      * @var EntityManagerInterface
      */
     private $em;
 
-    public function __construct(TaskRepository $taskRepository, EntityManagerInterface $em)
+    public function __construct(TaskRepository $taskRepository, EntityManagerInterface $em, TaskNormalizer $taskNormalizer)
     {
         $this->taskRepository = $taskRepository;
+        $this->taskNormalizer = $taskNormalizer;
         $this->em = $em;
     }
     /**
@@ -48,10 +53,17 @@ class CalendarController extends AbstractController
     public function dayTask(String $day, String $month, String $year): Response {
         
         $date = new DateTime($day."-".$month."-".$year);
+        $taskAsArray = array();
 
         $tasks = $this->taskRepository->findBy(['due_date' => $date]);
-        dump($tasks);
+        foreach($tasks as $task){
+            array_push($taskAsArray, $this->taskNormalizer->normalizeTask($task));
+        }
+        dump($taskAsArray);
         
-        return $this->render("calendar/day.html.twig");
+        return $this->render("calendar/day.html.twig", [
+            'tasks' => $taskAsArray,
+            'userToken' => $this->getUser()->getApiToken()
+        ]);
     }
 }

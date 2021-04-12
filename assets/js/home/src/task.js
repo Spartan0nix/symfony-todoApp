@@ -23,7 +23,9 @@ document.querySelectorAll(".checkbox > button.checked").forEach(element => {
 /*----------------------------------------------------------------------------------------------*/
 /*    EventListener for modal interactions                                                      */
 /*----------------------------------------------------------------------------------------------*/
-document.getElementById('add-row').addEventListener('click', openAddModal);
+if(document.getElementById('add-row')){
+    document.getElementById('add-row').addEventListener('click', openAddModal);
+}
 
 document.querySelectorAll(".edit-btn").forEach(element => {
     element.addEventListener("click", openUpdateModal);

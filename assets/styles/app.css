@@ -55,6 +55,7 @@ body {
 @import "./src/_animations.css";
 /*----------------------------------------------------------*/
 /* Import pages css */
+@import "./pages/taskTable.css";
 @import "./pages/taskIndex.css";
 @import "./pages/tagIndex.css";
 @import "./pages/login.css";

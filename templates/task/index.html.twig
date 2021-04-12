@@ -24,6 +24,36 @@
         <div class="alert-progress-bar"></div>
     </div>
     <div id="taskInfo">
-       <h4>Task Info</h4>
+       <section class="">
+           <table class="tableau">
+               <thead>
+                   <tr>
+                       <td>Tâche(s)</td>
+                       <td>Tag(s)</td>
+                       <td>Date d'écheance</td>
+                   </tr>
+               </thead>
+               <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>
+                                <span>{{ task.title }}</span>
+                                <span>{{ task.description }}</span>
+                            </td>
+                            <td>
+                                {% for tag in task.tags %}
+                                    <div class="tag" style="backgroundColor: {{ tag.color }}">
+                                        {{ tag.name }}
+                                    </div>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {# <span>{{ task.due_date }} </span> #}
+                            </td>
+                        </tr>
+                    {% endfor %}
+               </tbody>
+            </table>
+       </section>
     </div>
 {% endblock %}

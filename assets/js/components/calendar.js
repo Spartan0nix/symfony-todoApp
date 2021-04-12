@@ -104,14 +104,14 @@ function getDueTasks(trigger){
 
     monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
     for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
+        daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
                                         <span class="day-title">${index}</span>
-                                    </p>`
+                                    </a>`
     }
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<a class="calendar-task" href="/task/${element['id']}/details">${element['title']}</a>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
     });
     
     daysContainer.querySelector(currentDay).classList.toggle('currentDay');
@@ -130,9 +130,9 @@ function getDueTasks(trigger){
     }
 
     for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<p class="calendar-day" id="day-${index}">
+        daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
                                         <span class="day-title">${index}</span>
-                                    </p>`
+                                    </a>`;
     }
 
     if(currentMonth === currentDate.getMonth() + 1){
@@ -142,7 +142,7 @@ function getDueTasks(trigger){
 
     tasks.forEach(element => {
         let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<a class="calendar-task" href="/task/${element['id']}/details">${element['title']}</a>`;
+        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
     });
 }
 

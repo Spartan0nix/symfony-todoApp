@@ -8,6 +8,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use App\Repository\TaskRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -108,14 +109,19 @@ class TaskController extends AbstractController
      * @return JsonResponse
      */
     public function taskInfo(String $id){
+        $taskAsArray = array();
 
-        $task = $this->TaskRepository->find($id);
+        $tasks = $this->TaskRepository->find($id);
 
-        $task = $this->taskNormalizer->normalizeTask($task);
+        $tasks = $this->taskNormalizer->normalizeTask($tasks);
+        array_push($taskAsArray, $tasks);
+        
 
-        dump($task);
+        dump($tasks);
 
-        return $this->render("task/index.html.twig");
+        return $this->render("task/index.html.twig", [
+            'tasks' => $taskAsArray
+        ]);
     }
 
     /*----------------------------------------------------------------------------------------------------*/

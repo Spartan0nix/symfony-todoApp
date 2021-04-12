@@ -1,27 +1,3 @@
-#taskIndex .toolbox button, .toolbox a  { 
-    width: 180px; 
-}
-
-#taskIndex td {
-    border-right: none;
-}
-
-@media screen and (max-width: 670px){
-    #taskIndex .toolbox {
-        display: grid !important;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        grid-gap: 5px;
-        padding: 10px;
-        height: auto !important;
-    }
-    #taskIndex .toolbox button, .toolbox a { 
-        margin: auto; 
-    }
-    #taskIndex ._button {
-        display: grid !important;
-        grid-template-columns: 80px auto;
-    }
-    #taskIndex .checkbox {
-        margin: auto;
-    }
+#taskInfo {
+    height: 80vh;
 }

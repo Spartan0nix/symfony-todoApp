@@ -12,7 +12,7 @@ class TaskNormalizer
             'description' => $task->getDescription(),
             'finish' => $task->getFinish(),
             'created_at' => $task->getCreatedAt(),
-            'due_date' => $task->getDueDate(),
+            'due_date' => ($task->getDueDate()) ? $task->getDueDate()->format('d-m-Y') : "",
             'position' => $task->getPosition(),
             "tags" => array()
         );

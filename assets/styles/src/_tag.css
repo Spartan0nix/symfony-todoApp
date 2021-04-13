@@ -15,7 +15,7 @@
     flex-direction: column;
     position: relative;
 }
-.selected .tag {
+.selected .tag, .selected .element {
     display: inline-block;
     margin-left: 10px;
     margin-top: 10px;
@@ -30,12 +30,12 @@
 .open-select:hover {
     cursor: pointer;
 }
-.reset-tag {
+.reset-tag, .reset-selected {
     position: absolute;
     top: 10px;
     right: 40px;
 }
-.reset-tag:hover {
+.reset-tag:hover, .reset-selected:hover {
     cursor: pointer;
 }
 /*----------------------------------------------------------*/

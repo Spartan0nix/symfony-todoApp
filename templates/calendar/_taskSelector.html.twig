@@ -1,0 +1,35 @@
+<div class="select-container">
+    <div class="selected">
+        <div class="selected-header">
+            <input class="selected-title" placeholder="Sélectionner une tâche">
+            <span class="reset-selected">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </span>
+            <span class="open-select">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </span>
+        </div>
+        <div class="selected-elements">
+            <div class="tag" style="background-color: aqua;">
+                Test
+            </div>
+        </div>
+    </div>
+    <div class="select-options">
+        {% set i = 3 %}
+        {% for element in range(1,i) %}
+            <div class="options-row">
+                <div class="options">
+                    <div class="tag">
+                        <input type="checkbox" name="element[{{ element }}]" id="element_{{ element }}" value="{{ element }}">
+                        <label for="element_{{ element }}">Test-{{ element }}</label>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

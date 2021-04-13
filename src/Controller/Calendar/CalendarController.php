@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Date;
 
 class CalendarController extends AbstractController
 {
@@ -51,9 +50,10 @@ class CalendarController extends AbstractController
      * @return Response
      */
     public function dayTask(String $day, String $month, String $year): Response {
-        
-        $date = new DateTime($day."-".$month."-".$year);
+        $currentDate = $day."-".$month."-".$year;
         $taskAsArray = array();
+
+        $date = new DateTime($currentDate);
 
         $tasks = $this->taskRepository->findBy(['due_date' => $date]);
         foreach($tasks as $task){
@@ -62,6 +62,7 @@ class CalendarController extends AbstractController
         dump($taskAsArray);
         
         return $this->render("calendar/day.html.twig", [
+            'current_date' => $currentDate,
             'tasks' => $taskAsArray,
             'userToken' => $this->getUser()->getApiToken()
         ]);

@@ -1,3 +1,31 @@
+/*---------------------------------------------------------------*/
 #taskInfo {
     height: 80vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 90px;
 }
+#taskInfo td {
+    border-right: none;
+}
+/*---------------------------------------------------------------*/
+#taskInfo .header {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*---------------------------------------------------------------*/
+#taskInfo .toolbox {
+    width: 100%;
+    height: auto;
+}
+#taskInfo .select-container {
+    width: 50%;
+}
+/*---------------------------------------------------------------*/
+#taskInfo input[type="checkbox"] {
+    display: flex;
+}
+/*---------------------------------------------------------------*/

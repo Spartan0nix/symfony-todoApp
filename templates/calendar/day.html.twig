@@ -25,7 +25,13 @@
         <div class="alert-progress-bar"></div>
     </div>
     <div id="taskInfo">
-        <section class="tableau">
+        <section class="header">
+            <h2>Mes tâches du jour : <strong>{{ current_date }}</strong></h2>
+            <div class="toolbox">
+                {% include('calendar/_taskSelector.html.twig') %}
+            </div>
+        </section>
+        <section class="tableau mt-5">
             <input type="hidden" name="userToken" value="{{ userToken }}">
             <table class="main mt-3 mb-3">
                 <tbody id="task-list" class="grid">
@@ -43,7 +49,7 @@
                             <td class="table-content"> 
                                 <h4>{{ task.title }}</h4>
                                 <p>{{ task.description }}</p>
-                                <div class="task-tags-display flex items-start">
+                                <div class="tags-display flex items-start">
                                     {% for tag in task.tags %}
                                         <div class="tag ml-3 mt-1">
                                             <input type="hidden" class="tag-color-input" color="{{ tag.color }}">

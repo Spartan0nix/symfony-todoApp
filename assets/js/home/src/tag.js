@@ -40,7 +40,7 @@ document.querySelectorAll('.modal').forEach(element => {
             event.preventDefault();
             resetTag();
         }else if(event.target.closest('.open-select')){
-            openTagOptions(event.target.closest('.open-select'));
+            // openTagOptions(event.target.closest('.open-select'));
         }else if(event.target.closest('.tag') && event.target.closest('.selected-tags')){
             event.preventDefault();
         }else if(event.target.closest('.tag')){
@@ -55,7 +55,7 @@ document.querySelector('#modals').addEventListener('click', function(event){
         event.preventDefault();
         resetTag();
     }else if(event.target.closest('.open-select')){
-        openTagOptions(event.target.closest('.open-select'));
+        // openTagOptions(event.target.closest('.open-select'));
     }else if(event.target.closest('.tag') && event.target.closest('.selected-tags')){
         event.preventDefault();
     }else if(event.target.closest('.tag')){
@@ -69,25 +69,25 @@ document.querySelector('#modals').addEventListener('click', function(event){
 /**
  * Open the tag select box
  */
-function openTagOptions(element){
-    element.classList.toggle('active');
-    element.classList.toggle('rotate');
-    // console.log(element.closest('.select-container'));
-    // var optionsSelector = element.parentNode.parentNode.parentNode.querySelector('.select-options');
-    var optionsSelector = element.closest('.select-container').querySelector('.select-options');
-    optionsSelector.classList.toggle('active');
-}
+// function openTagOptions(element){
+//     element.classList.toggle('active');
+//     element.classList.toggle('rotate');
+//     // console.log(element.closest('.select-container'));
+//     // var optionsSelector = element.parentNode.parentNode.parentNode.querySelector('.select-options');
+//     var optionsSelector = element.closest('.select-container').querySelector('.select-options');
+//     optionsSelector.classList.toggle('active');
+// }
 
-/**
- * Close the tag select box
- */
-function closeTagOptions(){
-    var openSelect = document.querySelector('.open-select');
-    if(selectOption.classList.contains('active')){
-        selectOption.classList.toggle('active');
-        openSelect.classList.toggle('rotate');
-    }
-}
+// /**
+//  * Close the tag select box
+//  */
+// function closeTagOptions(){
+//     var openSelect = document.querySelector('.open-select');
+//     if(selectOption.classList.contains('active')){
+//         selectOption.classList.toggle('active');
+//         openSelect.classList.toggle('rotate');
+//     }
+// }
 
 /**
  * Keep track of the selected tags

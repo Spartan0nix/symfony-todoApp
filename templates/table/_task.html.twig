@@ -15,7 +15,7 @@
         <p>{{ task.description }}</p>
         <div class="task-tags-display flex items-start">
             {% for tag in task.tags %}
-                <div class="tag ml-3 mt-1">
+                <div class="tag ml-3 mt-1" style="background-color: {{ tag.color }}">
                     <input type="hidden" class="tag-color-input" color="{{ tag.color }}">
                     {{ tag.name }}
                 </div>

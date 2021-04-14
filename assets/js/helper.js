@@ -37,27 +37,27 @@ function displayFlash(type, action) {
 }
 
 /**
- * Create a tag selector base on all the user tags
- * @param {object} allUserTags 
+ * Create an element selector base on all the user element
+ * @param {object} allUserElements 
  */
-function createTagSelector(allUserTags){
+function createElementSelector(allUserElements, title){
     var input = '';
-    var selectedTag = '';
+    var selectedElement = '';
     let i = 0;
-    // Check if the tags are already used on this task
-    allUserTags.forEach(element => {
+    // Check if the element are already used
+    allUserElements.forEach(element => {
         if(element.isused){
 
-            selectedTag += ` <div class="tag tag-used ml-3 mt-1" style="background-color: ${element.color}">
-                                <span id="selectedTask_${element.id}">${element.name}</span>
+            selectedElement += ` <div class="element element-used ml-3 mt-1" style="background-color: ${element.color}">
+                                <span id="selectedElement_${element.id}">${element.name}</span>
                             </div>
             `;
 
             input += `<div class="options-row">
                         <div class="options"> 
-                            <div class="tag tag-used" style="background-color: ${element.color}">
-                                <input type="checkbox" class="update_tag_id" name="task[${i}]" id="tag_${element.id}" value="${element.id}" checked>
-                                <label for="tag_${element.id}">${element.name}</label>
+                            <div class="element element-used" style="background-color: ${element.color}">
+                                <input type="checkbox" class="element_id" name="task[${i}]" id="element_${element.id}" value="${element.id}" checked>
+                                <label for="element_${element.id}">${element.name}</label>
                             </div>
                             <span class="ml-3 check"><i class="fa fa-check" aria-hidden="true"></i></span>
                         </div>
@@ -67,9 +67,9 @@ function createTagSelector(allUserTags){
         }else{
             input += `<div class="options-row">
                         <div class="options"> 
-                            <div class="tag" style="background-color: ${element.color}">
-                                <input type="checkbox" class="update_tag_id" name="task[${i}]" id="tag_${element.id}" value="${element.id}" >
-                                <label for="tag_${element.id}">${element.name}</label>
+                            <div class="element" style="background-color: ${element.color}">
+                                <input type="checkbox" class="element_id" name="task[${i}]" id="element_${element.id}" value="${element.id}" >
+                                <label for="element_${element.id}">${element.name}</label>
                             </div>
                             <span class="ml-3 check"></span>
                         </div>
@@ -80,11 +80,11 @@ function createTagSelector(allUserTags){
     });
 
     // Define the content of the modal
-    var content = `<div class="select-container updateSelector">
+    var content = `<div class="select-container">
                         <div class="selected">
                             <div class="selected-header">
-                                <span class="selected-title">Sélectionner un ou plusieurs tags</span>
-                                <span class="reset-tag">
+                                <span class="selected-title">${title}</span>
+                                <span class="reset-selected">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                                     </svg>
@@ -95,8 +95,8 @@ function createTagSelector(allUserTags){
                                     </svg>
                                 </span>
                             </div>
-                            <div class="selected-tags">
-                                ${selectedTag}
+                            <div class="selected-elements">
+                                ${selectedElement}
                             </div>
                         </div>
                         <div class="select-options">
@@ -116,4 +116,4 @@ function createTag(tag){
     return content;
 }
 
-export { displayFlash, createTagSelector, createTag };
+export { displayFlash, createElementSelector, createTag };

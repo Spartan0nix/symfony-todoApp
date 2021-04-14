@@ -1,4 +1,4 @@
-import { displayFlash, createTagSelector, createTag } from '../../helper';
+import { displayFlash, createElementSelector, createTag } from '../../helper';
 
 document.querySelectorAll('input[type="text"]').forEach(element => {
     element.innerHTML = ""
@@ -105,7 +105,7 @@ function openUpdateModal(){
                     userTags[index].isused = false;
                 }
             }
-            var tagSelector = createTagSelector(userTags);
+            var tagSelector = createElementSelector(userTags, "Sélectionner un ou plusieurs tags");
             createModal(data, task, tagSelector);
 
         }else if(request.status === 400){

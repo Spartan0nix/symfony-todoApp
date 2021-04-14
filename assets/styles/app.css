@@ -43,7 +43,7 @@ body {
 @import "./src/_table.css";
 @import "./src/_modal.css";
 @import "./src/_alert.css";
-@import "./src/_tag.css";
+@import "./src/_selector.css";
 @import "./src/_navbar.css";
 @import "./src/_progressBar.css";
 @import "./src/_footer.css";

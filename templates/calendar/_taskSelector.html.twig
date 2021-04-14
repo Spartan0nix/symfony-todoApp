@@ -14,20 +14,22 @@
             </span>
         </div>
         <div class="selected-elements">
-            <div class="tag" style="background-color: aqua;">
+            <div class="element" style="background-color: aqua;">
                 Test
             </div>
         </div>
     </div>
     <div class="select-options">
         {% set i = 3 %}
+        {% set color = {"1":"#19381F", "2":"#41E2BA", "3": "#F7F7F9"} %}
         {% for element in range(1,i) %}
             <div class="options-row">
                 <div class="options">
-                    <div class="tag">
+                    <div class="element" style="background-color: {{ color[element] }}">
                         <input type="checkbox" name="element[{{ element }}]" id="element_{{ element }}" value="{{ element }}">
                         <label for="element_{{ element }}">Test-{{ element }}</label>
                     </div>
+                    <span class="ml-3 check"></span>
                 </div>
             </div>
         {% endfor %}

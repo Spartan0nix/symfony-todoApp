@@ -1,5 +1,3 @@
-const { event } = require("jquery");
-
 document.addEventListener('click', function(event){
     if(event.target.closest('.open-select')){
         toggleOptionsBox(event.target.closest('.select-container'));
@@ -33,19 +31,28 @@ function selectElement(container, element, event){
 
     var selectedElement = container.querySelector(".selected-elements");
     var input = element.querySelector("input[type='checkbox']");
-    var id = "#"+input.id;
+    var checkIcon = element.querySelector('.check');
+    var id = input.id;
+    console.log(element)
 
     if(input.checked){
-        var elementId = `#element-${id}`;
-        var elementClone = container.querySelector(`.selected-elements #element-${id}`).parentNode;
+        var elementClone = selectedElement.querySelector(`#element_${id}`);
         elementClone.parentNode.removeChild(elementClone);
         input.checked = false;
+        checkIcon.innerHTML = "";
     }else{
         input.checked = true;
-        var elementClone = input.parentNode.cloneNode(true);
-        selectedElement.appendChild(elementClone);
-        var checkbox = selectedElement.querySelector(id);
-        checkbox.parentNode.id = `element-${id}`;
-        checkbox.parentNode.removeChild(checkbox)
+        var elementContent = element.querySelector('label').innerHTML;
+        var elementColor = element.querySelector('.element').style.backgroundColor;
+        var newElement = document.createElement("span");
+        var newElementContent = document.createTextNode(elementContent);
+
+        checkIcon.innerHTML += '<i class="fa fa-check" aria-hidden="true"></i>';
+
+        newElement.appendChild(newElementContent);
+        newElement.id = `element_${id}`;
+        newElement.classList.add('element');
+        newElement.style.backgroundColor = elementColor;
+        selectedElement.appendChild(newElement);
     }
 }

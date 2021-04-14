@@ -15,7 +15,7 @@
     flex-direction: column;
     position: relative;
 }
-.selected .tag, .selected .element {
+.selected .element {
     display: inline-block;
     margin-left: 10px;
     margin-top: 10px;
@@ -30,12 +30,12 @@
 .open-select:hover {
     cursor: pointer;
 }
-.reset-tag, .reset-selected {
+.reset-selected {
     position: absolute;
     top: 10px;
     right: 40px;
 }
-.reset-tag:hover, .reset-selected:hover {
+.reset-selected:hover {
     cursor: pointer;
 }
 /*----------------------------------------------------------*/
@@ -81,23 +81,23 @@
     transform: rotate(180deg);
 }
 /*----------------------------------------------------------*/
-.tag {
+.tag, .element {
     padding: 5px 8px;
     border-radius: 8px;
     text-align: center;
 }
-.tag input[type="checkbox"] {
+.element input[type="checkbox"] {
     display: none;
 }
-.tag:hover{
+.tag:hover, .element:hover{
     cursor: pointer !important;
     filter: brightness(85%);
 }
-.tag > *:hover{
+.tag > *:hover, .element > *:hover{
     cursor: pointer !important;
     filter: brightness(85%);
 }
-.tag > input,label{
+.element > input,label{
     cursor: pointer !important;
     filter: brightness(85%);
 }

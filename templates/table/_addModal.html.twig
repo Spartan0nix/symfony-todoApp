@@ -10,7 +10,7 @@
                 <div class="selected">
                     <div class="selected-header">
                         <span class="selected-title">Sélectionner un ou plusieurs tags</span>
-                        <span class="reset-tag">
+                        <span class="reset-selected">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                             </svg>
@@ -21,16 +21,17 @@
                             </svg>
                         </span>
                     </div>
-                    <div class="selected-tags"></div>
+                    <div class="selected-elements"></div>
                 </div>
         
                 <div class="select-options">
                     {% for tag in Createform.tags_id %}
                         <div class="options-row">
                             <div class="options">
-                                <div class="tag">
+                                <div class="element">
                                     {{form_row(tag)}}
                                 </div>
+                                <span class="ml-3 check"></span>
                             </div>
                         </div>
                     {% endfor %}

@@ -20,59 +20,59 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    /**
-     * Use for the homepage
-     * Get all the tasks and tags in the database
-     * Associate each tags with the corresponding task
-     * @return array
-     */
-    public function findAllTask(){
-        // Get a connection to the database
-        $conn = $this->getEntityManager()->getConnection();
-        // SQL request to get all tasks info
-        $tasksSql = 'SELECT task.id, task.title, task.description, task.finish, task.created_at, task.position 
-                    FROM task
-                    ORDER BY task.position';
-        // SQL request to get all tags info
-        $tagsSql = 'SELECT tag.id, tag.name, tag.color, task_id, task.position
-                    FROM tag
-                    INNER JOIN task_tag ON tag.id = tag_id
-                    INNER JOIN task ON task_id = task.id
-                    ORDER BY task.position;';
-        // Execute queries
-        $tasksQuery = $conn->prepare($tasksSql);
-        $tasksQuery->execute();
-        $TagsQuery = $conn->prepare($tagsSql);
-        $TagsQuery->execute();
-        // Return the results as an associative array
-        $tasks = $tasksQuery->fetchAllAssociative();
-        $tags = $TagsQuery->fetchAllAssociative();
+    // /**
+    //  * Use for the homepage
+    //  * Get all the tasks and tags in the database
+    //  * Associate each tags with the corresponding task
+    //  * @return array
+    //  */
+    // public function findAllTask(){
+    //     // Get a connection to the database
+    //     $conn = $this->getEntityManager()->getConnection();
+    //     // SQL request to get all tasks info
+    //     $tasksSql = 'SELECT task.id, task.title, task.description, task.finish, task.created_at, task.position 
+    //                 FROM task
+    //                 ORDER BY task.position';
+    //     // SQL request to get all tags info
+    //     $tagsSql = 'SELECT tag.id, tag.name, tag.color, task_id, task.position
+    //                 FROM tag
+    //                 INNER JOIN task_tag ON tag.id = tag_id
+    //                 INNER JOIN task ON task_id = task.id
+    //                 ORDER BY task.position;';
+    //     // Execute queries
+    //     $tasksQuery = $conn->prepare($tasksSql);
+    //     $tasksQuery->execute();
+    //     $TagsQuery = $conn->prepare($tagsSql);
+    //     $TagsQuery->execute();
+    //     // Return the results as an associative array
+    //     $tasks = $tasksQuery->fetchAllAssociative();
+    //     $tags = $TagsQuery->fetchAllAssociative();
 
-        // Keep track of the current Task index
-        $taskPosition = 0;
-        // Loop through the different tasks
-        foreach($tasks as $task){
-            // Need to create a new index in the array to store the task tags
-            $tasks[$taskPosition]['tags'] = array();
-            // Loop through the different tags
-            foreach($tags as $tag) { 
-                // If the current taskId === the current tagId, push the current tag to the task 'tags' array
-                if($task['id'] === $tag['task_id']){
-                    array_push($tasks[$taskPosition]['tags'], $tag);
-                    // unset($tags[$tagPosition]);
-                }
-                // $tagPosition++;
-            }
-            $taskPosition++;
-        }
-        return $tasks;
-    }
+    //     // Keep track of the current Task index
+    //     $taskPosition = 0;
+    //     // Loop through the different tasks
+    //     foreach($tasks as $task){
+    //         // Need to create a new index in the array to store the task tags
+    //         $tasks[$taskPosition]['tags'] = array();
+    //         // Loop through the different tags
+    //         foreach($tags as $tag) { 
+    //             // If the current taskId === the current tagId, push the current tag to the task 'tags' array
+    //             if($task['id'] === $tag['task_id']){
+    //                 array_push($tasks[$taskPosition]['tags'], $tag);
+    //                 // unset($tags[$tagPosition]);
+    //             }
+    //             // $tagPosition++;
+    //         }
+    //         $taskPosition++;
+    //     }
+    //     return $tasks;
+    // }
 
     /**
      * Update the current task position [$id => TaskId, position => TaskPosition]
-     * @param int $id
-     * @param int $position
-     * @return void
+     * @param Int $id
+     * @param Int $position
+     * @return Void
      */
     public function updateOrder($id, $position){
         return $this->_em->createQueryBuilder()
@@ -85,6 +85,11 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Get all user tasks and corresponding tags
+     * @param Int $id
+     * @return Array
+     */
     public function findData($id){
         return $this->createQueryBuilder('task')
             ->leftJoin('task.tags_id', 'tag')
@@ -97,6 +102,12 @@ class TaskRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Get user due task for a specific month
+     * @param String $month
+     * @param Int $month
+     * @return Array
+     */
     public function findDueTask($month, $userId){
         $conn = $this->getEntityManager()->getConnection();
 
@@ -108,5 +119,38 @@ class TaskRepository extends ServiceEntityRepository
         $task = $query->fetchAllAssociative();
 
         return $task;
+    }
+
+    /**
+     * Get a specific number of user tasks
+     * @param Int $user
+     * @param Int $string
+     * @return Array
+     */
+    public function findLimitTask($user, $limit){
+        return $this->createQueryBuilder('t')
+            ->where('t.user_id = :user')
+            ->setParameters(['user' => $user])
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->execute()
+        ;
+    }
+
+    /**
+     * Search a string containing the given string
+     * @param Int $user
+     * @param String $string
+     * @return Array
+     */
+    public function searchTask($user, $string){
+        return $this->createQueryBuilder('t')
+            ->andWhere("t.user_id = :user")
+            ->andWhere("t.title LIKE :search")
+            ->setParameters(['user' => $user, 'search' => '%'.$string.'%'])
+            ->setMaxResults(8)
+            ->getQuery()
+            ->execute()
+        ;
     }
 }

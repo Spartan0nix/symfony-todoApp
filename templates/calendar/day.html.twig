@@ -5,6 +5,7 @@
 {% block body %}    
     {{ parent() }}
     {{ encore_entry_script_tags('selector') }}
+    {{ encore_entry_script_tags('calendarTask') }}
 
     {# Display messages and errors to keep user aware #}
     {# PHP alert #}
@@ -28,7 +29,10 @@
         <section class="header">
             <h2>Mes tâches du jour : <strong>{{ current_date }}</strong></h2>
             <div class="toolbox">
-                {% include('calendar/_taskSelector.html.twig') %}
+                <form action="/calendar/task/add" id="add-task-to-current-day" method="POST">
+                    {% include('calendar/_taskSelector.html.twig') %}
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </form>
             </div>
         </section>
         <section class="tableau mt-5">

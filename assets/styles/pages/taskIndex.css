@@ -21,8 +21,12 @@
     width: 100%;
     height: auto;
 }
+#taskInfo .toolbox > form {
+    display: flex;
+}
 #taskInfo .select-container {
     width: 50%;
+    margin: 10px 8px;
 }
 /*---------------------------------------------------------------*/
 

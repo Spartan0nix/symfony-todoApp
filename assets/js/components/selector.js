@@ -33,7 +33,6 @@ function selectElement(container, element, event){
     var input = element.querySelector("input[type='checkbox']");
     var checkIcon = element.querySelector('.check');
     var id = input.id;
-    console.log(element)
 
     if(input.checked){
         var elementClone = selectedElement.querySelector(`#element_${id}`);

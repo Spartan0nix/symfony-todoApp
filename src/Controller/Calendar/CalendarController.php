@@ -51,20 +51,47 @@ class CalendarController extends AbstractController
      */
     public function dayTask(String $day, String $month, String $year): Response {
         $currentDate = $day."-".$month."-".$year;
-        $taskAsArray = array();
+        $dayTasks = array();
+        $searchTasks = array();
 
         $date = new DateTime($currentDate);
 
         $tasks = $this->taskRepository->findBy(['due_date' => $date]);
         foreach($tasks as $task){
-            array_push($taskAsArray, $this->taskNormalizer->normalizeTask($task));
+            array_push($dayTasks, $this->taskNormalizer->normalizeTask($task));
         }
-        dump($taskAsArray);
+        
+        $tasks = $this->taskRepository->findLimitTask($this->getUser()->getId(), 5);
+        if($tasks){
+            foreach($tasks as $task){
+                array_push($searchTasks, $this->taskNormalizer->normalizeTask($task));
+            }
+        }
         
         return $this->render("calendar/day.html.twig", [
             'current_date' => $currentDate,
-            'tasks' => $taskAsArray,
-            'userToken' => $this->getUser()->getApiToken()
+            'tasks' => $dayTasks,
+            'userToken' => $this->getUser()->getApiToken(),
+            'searchTasks' => $searchTasks
         ]);
+    }
+
+    /**
+     * @Route("/calendar/task/add",name="calendar.task.add")
+     * @return Response
+     */
+    public function addTask(Request $request){
+
+        if($request->request){
+            $taskId = $request->request->get('element');
+            foreach($taskId as $id){
+                $task = $this->taskRepository->find($id);
+                // $task->setDueDate();
+            }
+        }
+        $this->em->flush();
+
+        // return $this->render('test/index.html.twig');
+        return $this->redirectToRoute('calendar.index');
     }
 }

@@ -25,6 +25,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('home', './assets/js/home/index.js')
     .addEntry('tagPage', './assets/js/tag/index.js')
+    .addEntry('calendarTask', './assets/js/calendarTask/index.js')
     .addEntry('colorPicker', './assets/js/components/colorPicker.js')
     .addEntry('calendar', './assets/js/components/calendar.js')
     .addEntry('selector', './assets/js/components/selector.js')

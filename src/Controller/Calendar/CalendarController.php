@@ -84,14 +84,14 @@ class CalendarController extends AbstractController
 
         if($request->request){
             $taskId = $request->request->get('element');
+            $currentDate = $request->request->get('currentDate');
             foreach($taskId as $id){
                 $task = $this->taskRepository->find($id);
-                // $task->setDueDate();
+                $task->setDueDate(new DateTime($currentDate));
+                $this->em->flush();
             }
         }
-        $this->em->flush();
-
-        // return $this->render('test/index.html.twig');
+    
         return $this->redirectToRoute('calendar.index');
     }
 }

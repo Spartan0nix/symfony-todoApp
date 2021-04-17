@@ -30,6 +30,7 @@
             <h2>Mes tâches du jour : <strong>{{ current_date }}</strong></h2>
             <div class="toolbox">
                 <form action="/calendar/task/add" id="add-task-to-current-day" method="POST">
+                <input type="hidden" name="currentDate" value="{{ current_date }}">
                     {% include('calendar/_taskSelector.html.twig') %}
                     <button type="submit" class="btn btn-primary">Ajouter</button>
                 </form>

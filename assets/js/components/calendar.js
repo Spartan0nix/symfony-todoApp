@@ -61,8 +61,8 @@ function getDueTasks(trigger){
     var request = new XMLHttpRequest();
     var Apitoken = document.querySelector('input[name="apiToken"').value;
     
-    if(currentMonth < 10) {
-        var month = "0"+currentMonth;
+    if(currentMonth.length < 2) {
+        currentMonth = "0"+currentMonth;
     }
     
     function handleResponse(){
@@ -84,7 +84,7 @@ function getDueTasks(trigger){
         }
     }
 
-    request.open('GET', '/api/calendar/tasks?month='+month, true);
+    request.open('GET', '/api/calendar/tasks?month='+currentMonth, true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     request.setRequestHeader('X-Auth-Token', Apitoken);
     request.onreadystatechange = handleResponse;
@@ -98,11 +98,12 @@ function getDueTasks(trigger){
  function createCalendar(tasks) {
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
     let currentDay = '#day-'+currentDate.getDate();
-    if(currentMonth < 10) {
-        var month = "0"+currentMonth;
+
+    if(currentMonth.length < 2) {
+        currentMonth = "0"+currentMonth;
     }
 
-    monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
+    monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
     for (let index = 1; index <= numberOfDays; index++) {
         daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
                                         <span class="day-title">${index}</span>
@@ -123,11 +124,13 @@ function getDueTasks(trigger){
  */
  function updateCalendar(tasks){
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
-    monthContainer.querySelector('h3').innerHTML = month[currentMonth]+' - '+currentYear;
-    daysContainer.innerHTML = '';
-    if(currentMonth < 10) {
-        var month = "0"+currentMonth;
+
+    if(currentMonth.length < 2) {
+        currentMonth = "0"+currentMonth;
     }
+
+    monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
+    daysContainer.innerHTML = '';
 
     for (let index = 1; index <= numberOfDays; index++) {
         daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
@@ -148,8 +151,8 @@ function getDueTasks(trigger){
 
 /**
  * Get the number of days in the month
- * @param {Number} month 
- * @param {Number} year 
+ * @param {number} month 
+ * @param {number} year 
  */
  function getDaysInMonth(month, year){
     return new Date(year, month, 0).getDate();

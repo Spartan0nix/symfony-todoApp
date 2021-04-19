@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Tag;
 use App\Entity\Task;
 use App\Repository\TagRepository;
+use DateTime;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,11 +19,16 @@ class TaskType extends AbstractType
     /**
      * @var TagRepository
      */
-    // private $tagRepository;
+    private $tagRepository;
+    // /**
+    //  * @var DateTime
+    //  */
+    // private $currentDate;
 
     public function __construct(TagRepository $tagRepository)
     {
         $this->tagRepository = $tagRepository;
+        // $this->currentDate = new DateTime('now');
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -53,6 +60,13 @@ class TaskType extends AbstractType
                     if($tag){ return $tag->getName(); }
                 }
 
+            ])
+            ->add('due_date', DateType::class, [
+                'placeholder' => [
+                    'year' => date('Y'), 
+                    'month' => date('m'), 
+                    'day' => date('d')
+                ]
             ])
         ;
     }

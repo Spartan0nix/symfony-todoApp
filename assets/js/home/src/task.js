@@ -75,11 +75,13 @@ document.querySelector('#modals').addEventListener('submit', function(event) {
 function openAddModal(){
     document.querySelector('.addRowModal').style.visibility = 'visible';
     document.querySelector('.addRowModal').style.opacity = '1';
+    document.querySelector('body').style.overflowY = 'hidden';
 }
 
 function openUpdateModal(){
     var id = this.parentNode.parentNode.id;
     var Apitoken = document.querySelector('input[name="userToken"]').value;
+    document.querySelector('body').style.overflowY = 'hidden';
 
     var request = new XMLHttpRequest();
 
@@ -160,6 +162,7 @@ function openUpdateModal(){
 }
 
 function openDeleteModal(){
+    document.querySelector('body').style.overflowY = 'hidden';
     var id = this.parentNode.parentNode.id;
     document.getElementById("modals").innerHTML = `<div class="modal-wrapper deleteRowModal">
                                                     <form action="#" class="delete-submit" method="POST">
@@ -199,6 +202,8 @@ function closeModal(){
             document.getElementById("modals").innerHTML = "";
         })
     })
+
+    document.querySelector('body').style.overflowY = '';
 }
 
 /*----------------------------------------------------------------------------------------------*/

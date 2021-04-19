@@ -3,7 +3,11 @@
     height: 80vh;
     display: flex;
     flex-direction: column;
-    margin-top: 90px;
+    margin-top: 70px;
+}
+#taskInfo h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
 }
 #taskInfo td {
     border-right: none;
@@ -23,11 +27,54 @@
 }
 #taskInfo .toolbox > form {
     display: flex;
+    justify-content: center;
 }
 #taskInfo .select-container {
     width: 50%;
     margin: 10px 8px;
 }
 /*---------------------------------------------------------------*/
+#taskInfo .selected-search {
+    width: 80%;
+    background-color: transparent;
+    outline: none;
+    transition: 0.2s ease-in-out;
+    border-bottom: 1px solid var(--border-color);
+}
+#taskInfo .selected-search:focus {
+    border-bottom:1px solid var(--color-primary);
+}
+/*---------------------------------------------------------------*/
+@media screen and (max-width: 800px) {
+    #taskInfo .tableau {
+        width: 90%;
+    }
+    #taskInfo .select-container {
+        width: 80%;
+    }
+    #add-task-to-current-day .btn {
+        font-size: 18px;
+        height: 40px;
+    }
+}
 
+@media screen and (max-width: 670px){
+    #taskInfo .toolbox {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-gap: 5px;
+        padding: 10px;
+        height: auto !important;
+    }
+    #taskInfo .toolbox button, .toolbox a { 
+        margin: auto; 
+    }
+    #taskInfo ._button {
+        display: grid !important;
+        grid-template-columns: 80px auto;
+    }
+    #taskInfo .checkbox {
+        margin: auto;
+    }
+}
 /*---------------------------------------------------------------*/

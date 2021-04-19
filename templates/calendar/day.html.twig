@@ -27,7 +27,7 @@
     </div>
     <div id="taskInfo">
         <section class="header">
-            <h2>Mes tâches du jour : <strong>{{ current_date }}</strong></h2>
+            <h2>Mes tâches du : <strong>{{ current_date }}</strong></h2>
             <div class="toolbox">
                 <form action="/calendar/task/add" id="add-task-to-current-day" method="POST">
                 <input type="hidden" name="currentDate" value="{{ current_date }}">

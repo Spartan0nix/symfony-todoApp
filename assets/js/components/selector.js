@@ -24,6 +24,12 @@ function toggleOptionsBox(container){
  */
 function resetSelectedOptions(container){
     container.querySelector('.selected-elements').innerHTML = '';
+    container.querySelectorAll('.check').forEach(element => {
+        element.parentNode.removeChild(element);
+    });
+    if(container.querySelector('.selected-options')){
+        container.querySelector('.selected-options').innerHTML = '';
+    }   
 }
 
 function selectElement(container, element, event){

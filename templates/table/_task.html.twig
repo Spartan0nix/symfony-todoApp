@@ -13,6 +13,9 @@
     <td class="table-content"> 
         <h4>{{ task.title }}</h4>
         <p>{{ task.description }}</p>
+        {% if task.due_date  %}
+            <p>Date limite : <strong>{{ task.due_date }}</strong></p>
+        {% endif %}
         <div class="task-tags-display flex items-start">
             {% for tag in task.tags %}
                 <div class="tag ml-3 mt-1" style="background-color: {{ tag.color }}">

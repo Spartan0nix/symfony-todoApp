@@ -95,7 +95,7 @@ class TaskController extends AbstractController
         }elseif($CreateTaskform->isSubmitted() && !$CreateTaskform->isValid()){
             $this->addFlash("error","La tâche n'a pas pu être ajoutée");
         }
-
+        
         // On render notre vue et fais passer notre objet Tasks 
         return $this->render('table/index.html.twig', [
             'tasks' => $taskAsArray,

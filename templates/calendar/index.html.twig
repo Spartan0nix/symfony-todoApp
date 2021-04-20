@@ -6,7 +6,7 @@
     {{ parent() }}
     {{ encore_entry_script_tags('calendar') }}
 
-    <div class="calendar-container">
+    <div class="calendar-container" id="calendarIndex">
     <input type="hidden" name="apiToken" value={{ token }}>
         <section class="calendar-header">
             <span id="last-month">

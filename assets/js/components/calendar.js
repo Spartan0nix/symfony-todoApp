@@ -5,9 +5,11 @@ var currentDate = new Date();
 var currentMonth = currentDate.getMonth()+1;
 var currentYear = currentDate.getFullYear();
 
-var monthContainer = document.querySelector('.calendar-header');
-var weekDaysContainer = document.querySelector('.calendar-weekdays');
-var daysContainer = document.querySelector('.calendar-days-display');
+if(document.querySelector('.calendar-container')){
+    var monthContainer = document.querySelector('.calendar-header');
+    var weekDaysContainer = document.querySelector('.calendar-weekdays');
+    var daysContainer = document.querySelector('.calendar-days-display');
+}
 
 /**
  * Event listener to change month
@@ -23,8 +25,11 @@ document.addEventListener('click', function(event) {
 /**
  * Start
  */
-getDueTasks("page-loaded");
-
+if(document.querySelector('#calendarIndex')){
+    getDueTasks("page-loaded");
+}else if(document.querySelector('.calendar-container')){
+    createCalendar();
+}
 
 /**
  * Display last month
@@ -58,44 +63,54 @@ function getNextMonth(){
  * @param {String} trigger 
  */
 function getDueTasks(trigger){
-    var request = new XMLHttpRequest();
-    var Apitoken = document.querySelector('input[name="apiToken"').value;
-    
-    if(currentMonth.length < 2) {
-        currentMonth = "0"+currentMonth;
-    }
-    
-    function handleResponse(){
-        if(request.readyState === 4 && request.status === 200){
-            var response = JSON.parse(request.responseText);
-            // User just accessed the page
-            if(trigger === "page-loaded") {
-                createCalendar(response.tasks);
-            }else if(trigger === "update-calendar"){
-                // getDueTasks was called when the user change the current Month
-                updateCalendar(response.tasks);
+    if(document.querySelector('input[name="apiToken"')){
+        var request = new XMLHttpRequest();
+        var Apitoken = document.querySelector('input[name="apiToken"').value;
+        
+        if(currentMonth.length < 2) {
+            currentMonth = "0"+currentMonth;
+        }
+        
+        function handleResponse(){
+            if(request.readyState === 4 && request.status === 200){
+                var response = JSON.parse(request.responseText);
+                // User just accessed the page
+                if(trigger === "page-loaded") {
+                    createCalendar(response.tasks);
+                }else if(trigger === "update-calendar"){
+                    // getDueTasks was called when the user change the current Month
+                    updateCalendar(response.tasks);
+                }
+            }else if(request.status === 400){
+                var response = JSON.parse(request.responseText);
+                displayFlash("warning", response.message)
+            }else if(request.status === 404){
+                var response = JSON.parse(request.responseText);
+                displayFlash("error", response.message)
             }
-        }else if(request.status === 400){
-            var response = JSON.parse(request.responseText);
-            displayFlash("warning", response.message)
-        }else if(request.status === 404){
-            var response = JSON.parse(request.responseText);
-            displayFlash("error", response.message)
+        }
+
+        request.open('GET', '/api/calendar/tasks?month='+currentMonth, true);
+        request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        request.setRequestHeader('X-Auth-Token', Apitoken);
+        request.onreadystatechange = handleResponse;
+        request.send(null);
+    }else{
+        if(trigger === "page-loaded") {
+            createCalendar();
+        }else if(trigger === "update-calendar"){
+            // getDueTasks was called when the user change the current Month
+            updateCalendar();
         }
     }
-
-    request.open('GET', '/api/calendar/tasks?month='+currentMonth, true);
-    request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    request.setRequestHeader('X-Auth-Token', Apitoken);
-    request.onreadystatechange = handleResponse;
-    request.send(null);
+    
 }
 
 /**
  * Create the calendar when loading the page 
  * @param {Array} tasks 
  */
- function createCalendar(tasks) {
+ function createCalendar(tasks = "") {
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
     let currentDay = '#day-'+currentDate.getDate();
 
@@ -103,17 +118,28 @@ function getDueTasks(trigger){
         currentMonth = "0"+currentMonth;
     }
 
-    monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
-    for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
-                                        <span class="day-title">${index}</span>
-                                    </a>`
-    }
+    if(tasks){
+        monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
+        for (let index = 1; index <= numberOfDays; index++) {
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
+                                            <span class="day-title">${index}</span>
+                                        </a>`
+        }
 
-    tasks.forEach(element => {
-        let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
-    });
+        tasks.forEach(element => {
+            let dayIndex = '#day-'+element['due_date'].slice(8,10);
+            daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
+        });
+
+        setTimeout(getNumberOfTask(), 100);
+    }else{
+        monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
+        for (let index = 1; index <= numberOfDays; index++) {
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" value="${index}-${currentMonth}-${currentYear}">
+                                            <span class="day-title">${index}</span>
+                                        </a>`
+        }
+    }
     
     daysContainer.querySelector(currentDay).classList.toggle('currentDay');
     
@@ -122,7 +148,7 @@ function getDueTasks(trigger){
 /**
  * Update calendar innerHTML
  */
- function updateCalendar(tasks){
+ function updateCalendar(tasks = ""){
     let numberOfDays = getDaysInMonth(currentMonth, currentYear);
 
     if(currentMonth.length < 2) {
@@ -132,21 +158,33 @@ function getDueTasks(trigger){
     monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
     daysContainer.innerHTML = '';
 
-    for (let index = 1; index <= numberOfDays; index++) {
-        daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
-                                        <span class="day-title">${index}</span>
-                                    </a>`;
+    if(tasks){
+        for (let index = 1; index <= numberOfDays; index++) {
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="/calendrier/${index}-${currentMonth}-${currentYear}/tasks">
+                                            <span class="day-title">${index}</span>
+                                        </a>`;
+        }
+
+        tasks.forEach(element => {
+            let dayIndex = '#day-'+element['due_date'].slice(8,10);
+            daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
+        });
+    
+        setTimeout(getNumberOfTask(), 100);
+    }else{
+        monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
+        for (let index = 1; index <= numberOfDays; index++) {
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" value="${index}-${currentMonth}-${currentYear}">
+                                            <span class="day-title">${index}</span>
+                                        </a>`
+        }
     }
 
     if(currentMonth === currentDate.getMonth() + 1){
         let currentDay = '#day-'+currentDate.getDate();
         daysContainer.querySelector(currentDay).classList.toggle('currentDay');
     }
-
-    tasks.forEach(element => {
-        let dayIndex = '#day-'+element['due_date'].slice(8,10);
-        daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
-    });
+    
 }
 
 /**
@@ -157,3 +195,23 @@ function getDueTasks(trigger){
  function getDaysInMonth(month, year){
     return new Date(year, month, 0).getDate();
 }
+
+/**
+ * Add a span with the number of task for each day
+ */
+function getNumberOfTask(){
+    document.querySelectorAll('.calendar-day').forEach(element => {
+        var taskCount = element.querySelectorAll('.calendar-task').length;
+        if(taskCount != 0){
+            var taskCounter = document.createElement('span');
+            taskCounter.classList.add('calendar-task-count');
+            taskCounter.innerHTML = `${taskCount} <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd" />
+                                                </svg>`;
+            element.appendChild(taskCounter);
+        }
+    })
+}
+
+export { createCalendar, updateCalendar }

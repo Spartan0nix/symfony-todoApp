@@ -1,5 +1,7 @@
 import { displayFlash, createElementSelector, createTag } from '../../helper';
-
+import { createCalendarSelector } from './calendar';
+import '../../components/calendar';
+ 
 document.querySelectorAll('input[type="text"]').forEach(element => {
     element.innerHTML = ""
     element.value = ""
@@ -81,6 +83,7 @@ function openAddModal(){
 function openUpdateModal(){
     var id = this.parentNode.parentNode.id;
     var Apitoken = document.querySelector('input[name="userToken"]').value;
+    var calendarSelector = createCalendarSelector();
     document.querySelector('body').style.overflowY = 'hidden';
 
     var request = new XMLHttpRequest();
@@ -142,10 +145,11 @@ function openUpdateModal(){
                                                                         <div class="input-text description">
                                                                             <div>
                                                                                 <label for="task-${ userTask.id }-description">Description</label>
-                                                                                <textarea id="task-${ userTask.id }-description" name="description" cols="10" rows="5">${ userTask.description }</textarea>   
+                                                                                <textarea id="task-${ userTask.id }-description" name="description" cols="5" rows="3">${ userTask.description }</textarea>   
                                                                             </div>
                                                                         </div>
                                                                         ${tagSelector}
+                                                                        ${calendarSelector}
                                                                     </div>
                                                                     <div class="modal-btn">
                                                                         <button type="submit" class="btn btn-primary flex items-center">Modifier</button>

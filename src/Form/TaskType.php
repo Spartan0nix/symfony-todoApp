@@ -63,9 +63,9 @@ class TaskType extends AbstractType
             ])
             ->add('due_date', DateType::class, [
                 'placeholder' => [
-                    'year' => date('Y'), 
-                    'month' => date('m'), 
-                    'day' => date('d')
+                    'year' => 'Année', 
+                    'month' => 'Mois', 
+                    'day' => 'Jour'
                 ]
             ])
         ;

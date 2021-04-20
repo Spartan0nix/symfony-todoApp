@@ -77,4 +77,13 @@
         margin: auto;
     }
 }
+
+@media screen and (max-width: 450px) {
+    #taskInfo .selected-header::after {
+        content: '' !important;
+    }
+    #taskInfo .selected-title {
+        visibility: visible;
+    }
+}
 /*---------------------------------------------------------------*/

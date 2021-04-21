@@ -1,19 +1,19 @@
 var mobileOpenBtn = document.querySelector('.navbar-mobile-btn');
 var navbarMenu = document.querySelector('.navbar-navigation');
-var homepageDemo = document.querySelector('.homepage-demo');
+var body = document.querySelector('body');
 
 mobileOpenBtn.addEventListener('click', function(){
     mobileOpenBtn.classList.toggle('navbar-active');
 
     if(mobileOpenBtn.classList.contains('navbar-active')) {
         navbarMenu.setAttribute ('style', 'display: inline-flex !important; height: 100vh;')
-        homepageDemo.setAttribute('style','overflow-y: hidden');
+        body.setAttribute('style','overflow-y: hidden');
     }
     if(!mobileOpenBtn.classList.contains('navbar-active')) {
         navbarMenu.setAttribute ('style', 'display: inline-flex !important; animation: heighSlideOut 0.5s;');
         setTimeout(function(){
             navbarMenu.removeAttribute('style');
-            homepageDemo.removeAttribute('style');
+            body.removeAttribute('style');
         },500);
     }
 })

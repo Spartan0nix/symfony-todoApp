@@ -67,6 +67,10 @@
     cursor: pointer !important;
 }
 /*------------------------------------------------------------------------*/
+.calendar-selector-container {
+    margin-top: 2rem;
+}
+/*------------------------------------------------------------------------*/
 
 @media screen and (max-width: 600px){
     .modal-wrapper form{
@@ -75,5 +79,18 @@
     .modal {
         width: 90%;
         margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 440px){
+    .open-calendar {
+        height: 54px;
+        width: 60px;
+    }
+    .calendar-selector-container #due-date {
+        width: 80%;
+    }
+    .small-calendar-container {
+        left: 24%;
     }
 }

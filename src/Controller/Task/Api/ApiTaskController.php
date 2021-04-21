@@ -239,6 +239,7 @@ class ApiTaskController extends AbstractController
             $token = $body['token'];
             $addTagArray = $body['addTags'];
             $removeTagArray = $body['removeTag'];
+            $dueDate = $body['dueDate'];
 
             $task = $this->TaskRepository->find($id);
 
@@ -252,6 +253,11 @@ class ApiTaskController extends AbstractController
             
             $task->setTitle($title);
             $task->setDescription($description);
+            if($dueDate){
+                $task->setDueDate(new \DateTime($dueDate));
+            }else{
+                $task->setDueDate(null);
+            }
 
             foreach($removeTagArray as $tagId){
                 $currentTag = $this->TagRepository->find($tagId);

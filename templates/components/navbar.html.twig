@@ -17,7 +17,7 @@
         </section>
         <section class="navbar-user flex border-l-2 border-grey-light items-center justify-around ml-auto">
             {% if app.user %}
-                <a href="#" class="hover:bg-grey-medium rounded p-2">Mon compte</a>
+                <a href="{{ path('user.account') }}" class="hover:bg-grey-medium rounded p-2">Mon compte</a>
                 <a href="{{ path('security_logout') }}" class="hover:bg-grey-medium rounded p-2">Se déconnecter</a>
             {% else %}
                 <a href="{{ path('security_register') }}" class="hover:bg-grey-medium rounded p-2">Créer un compte</a>

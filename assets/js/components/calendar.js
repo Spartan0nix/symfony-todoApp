@@ -19,6 +19,21 @@ document.addEventListener('click', function(event) {
         getLastMonth()
     }else if(event.target.closest('#next-month')){
         getNextMonth()
+    }else if(event.target.closest('.open-calendar')){
+        if(event.target.closest('.calendar-selector-container').querySelector('.small-calendar-container').style.display === 'none'){
+            var calendarSelectorContainer = event.target.closest('.calendar-selector-container');
+            calendarSelectorContainer.style.position = 'relative';
+            calendarSelectorContainer.querySelector('.small-calendar-container').style.display = 'block';
+            calendarSelectorContainer.querySelector('.calendar-days-display').innerHTML = '';
+            monthContainer = calendarSelectorContainer.querySelector('.calendar-header');
+            weekDaysContainer = calendarSelectorContainer.querySelector('.calendar-weekdays');
+            daysContainer = calendarSelectorContainer.querySelector('.calendar-days-display');
+            createCalendar();
+        }else{
+            var calendarSelectorContainer = event.target.closest('.calendar-selector-container');
+            calendarSelectorContainer.style.position = '';
+            calendarSelectorContainer.querySelector('.small-calendar-container').style.display = 'none';
+        }  
     }
 })
 
@@ -27,8 +42,6 @@ document.addEventListener('click', function(event) {
  */
 if(document.querySelector('#calendarIndex')){
     getDueTasks("page-loaded");
-}else if(document.querySelector('.calendar-container')){
-    createCalendar();
 }
 
 /**
@@ -127,7 +140,12 @@ function getDueTasks(trigger){
         }
 
         tasks.forEach(element => {
-            let dayIndex = '#day-'+element['due_date'].slice(8,10);
+            var elementDay = element['due_date'].slice(8,10);
+            if(elementDay < '10'){
+                var dayIndex = '#day-'+elementDay.slice(1,2);
+            }else{
+                var dayIndex = '#day-'+element['due_date'].slice(8,10);
+            }
             daysContainer.querySelector(dayIndex).innerHTML += `<p class="calendar-task">${element['title']}</p>`;
         });
 
@@ -135,7 +153,7 @@ function getDueTasks(trigger){
     }else{
         monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
         for (let index = 1; index <= numberOfDays; index++) {
-            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" value="${index}-${currentMonth}-${currentYear}">
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" data-value="${index}-${currentMonth}-${currentYear}">
                                             <span class="day-title">${index}</span>
                                         </a>`
         }
@@ -174,7 +192,7 @@ function getDueTasks(trigger){
     }else{
         monthContainer.querySelector('h3').innerHTML = month[Number(currentMonth)]+' - '+currentYear;
         for (let index = 1; index <= numberOfDays; index++) {
-            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" value="${index}-${currentMonth}-${currentYear}">
+            daysContainer.innerHTML += `<a class="calendar-day" id="day-${index}" href="#" data-value="${index}-${currentMonth}-${currentYear}">
                                             <span class="day-title">${index}</span>
                                         </a>`
         }

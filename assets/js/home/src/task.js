@@ -56,6 +56,9 @@ document.querySelector('#modals').addEventListener('click', function(event){
     event.target.parentNode.parentNode.classList.contains('close-modal')){
         event.preventDefault();
         closeModal();
+    }else if(event.target.closest('.calendar-day')){
+        event.preventDefault();
+        selectDueDate(event.target.closest('.calendar-day'));
     }
 })
 
@@ -149,7 +152,11 @@ function openUpdateModal(){
                                                                             </div>
                                                                         </div>
                                                                         ${tagSelector}
-                                                                        ${calendarSelector}
+                                                                        <div class="calendar-selector-container flex">
+                                                                            <a class="open-calendar btn btn-primary" href="#">Date limite</a>
+                                                                            <input class="ml-2" type="text" id="due-date" name="due-date" value="">
+                                                                            ${calendarSelector}
+                                                                        </div>
                                                                     </div>
                                                                     <div class="modal-btn">
                                                                         <button type="submit" class="btn btn-primary flex items-center">Modifier</button>
@@ -187,6 +194,17 @@ function openDeleteModal(){
         document.querySelector("#modals > .deleteRowModal").style.visibility = 'visible';
         document.querySelector("#modals > .deleteRowModal").style.opacity = '1';
     }, 50);
+}
+
+/**
+ * Add selected due_date from the small calendar
+ * @param {*} dayContainer 
+ */
+function selectDueDate(dayContainer){
+    var day = dayContainer.dataset.value;
+    document.querySelector('#due-date').value = day;
+    dayContainer.closest('.calendar-selector-container').style.position = '';
+    dayContainer.closest('.calendar-selector-container').querySelector('.small-calendar-container').style.display = 'none';
 }
 
 /**
@@ -349,7 +367,21 @@ function updateRow(event){
             displayFlash("success", response.message)
             // Update table row information
             currentRow.querySelector('h4').innerHTML = task.title;
-            currentRow.querySelector('p').innerHTML = task.description;
+            currentRow.querySelector('.task-description').innerHTML = task.description;
+            if(!task.due_date){
+                if(currentRow.querySelector('.task-dueDate')){
+                    var element = currentRow.querySelector('.task-dueDate');
+                    element.parentNode.removeChild(element);
+                }
+            }else{
+                if(!currentRow.querySelector('.task-dueDate')){
+                    var element = document.createElement('p');
+                    element.classList.add('task-dueDate');
+                    element.innerHTML = 'Date limite : <strong></strong>';
+                    currentRow.querySelector('.table-content').appendChild(element);
+                }
+                currentRow.querySelector('.task-dueDate > strong').innerHTML = task.due_date;
+            }
             currentRow.querySelector('.task-tags-display').innerHTML = '';
 
             tags.forEach(element => {
@@ -372,7 +404,8 @@ function updateRow(event){
         'description': data['description'].value,
         'token': data['token'].value,
         'addTags': addTagArray,
-        'removeTag': removeTagArray
+        'removeTag': removeTagArray,
+        'dueDate': data['due-date'].value
     });
     request.open('POST', '/api/task/update', true);
     request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');

@@ -12,9 +12,9 @@
     </td>
     <td class="table-content"> 
         <h4>{{ task.title }}</h4>
-        <p>{{ task.description }}</p>
+        <p class="task-description">{{ task.description }}</p>
         {% if task.due_date  %}
-            <p>Date limite : <strong>{{ task.due_date }}</strong></p>
+            <p class="task-dueDate">Date limite : <strong>{{ task.due_date }}</strong></p>
         {% endif %}
         <div class="task-tags-display flex items-start">
             {% for tag in task.tags %}

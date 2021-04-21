@@ -48,10 +48,11 @@ function createElementSelector(allUserElements, title){
     allUserElements.forEach(element => {
         if(element.isused){
 
-            selectedElement += ` <div class="element element-used ml-3 mt-1" style="background-color: ${element.color}">
-                                <span id="selectedElement_${element.id}">${element.name}</span>
-                            </div>
-            `;
+            // selectedElement += ` <div class="element element-used ml-3 mt-1" style="background-color: ${element.color}">
+            //                     <span id="element_${element.id}">${element.name}</span>
+            //                 </div>
+            // `;
+            selectedElement += `<span id="element_element_${element.id}" class="element" style="background-color: ${element.color}">${element.name}</span>`;
 
             input += `<div class="options-row">
                         <div class="options"> 

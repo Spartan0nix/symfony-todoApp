@@ -77,6 +77,10 @@
 /*---------------------------------------------------------------*/
 .small-calendar-container {
     width: 250px;
+    display: none;
+    position: absolute;
+    left: 30%;
+    top: -50px;
 }
 .small-calendar-container .calendar-days-display {
     grid-template-rows: none;
@@ -86,8 +90,14 @@
     .calendar-days-display {
         grid-template-rows: repeat(5, 20%);
     }
+    .small-calendar-container .calendar-days-display {
+        grid-template-rows: none;
+    }
     .calendar-day {
         height: 74px;
+    }
+    .small-calendar-container .calendar-day {
+        height: auto;
     }
     .calendar-task {
         display: none;
